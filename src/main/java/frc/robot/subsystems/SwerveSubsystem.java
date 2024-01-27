@@ -3,13 +3,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotMap;
-import frc.robot.RobotMap.driveConstants;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.util.Units;
@@ -27,7 +24,7 @@ class SwerveModule{
 
     // state VAraibles
     private SwerveModuleState currentState;
-    private SwerveModuleState disiredState;
+    private SwerveModuleState desiredState;
 
     //we need TWO PID controllers
     PIDController DrivePIDController;
@@ -41,19 +38,20 @@ class SwerveModule{
         Direction_Motor = new CANSparkMax(Direction_Motor_Port, MotorType.kBrushless);
         
         currentState = new SwerveModuleState();
-        
 
         DrivePIDController = new PIDController(0.1,0, 0);
         TurnPIDController = new PIDController(0.1, 0, 0);
     }
 
     public SwerveModuleState getState(){
-        return currentState;
+        return desiredState;
     } 
 
     public void setDesiredState(SwerveModuleState state){
-        disiredState = state;
-
+        desiredState = state;
+    
+        Drive_Motor.setVoltage(1);
+        Direction_Motor.setVoltage(2);
     }
 }
 
@@ -139,6 +137,6 @@ public class SwerveSubsystem extends SubsystemBase{
         //send data to the smartBoard
         
         SmartDashboard.putNumberArray("SwerveModuleStates", lodgingState);
-
+    
     }
 }

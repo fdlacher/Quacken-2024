@@ -19,6 +19,6 @@ public class RobotMap {
         public static final int K_Front_Right_Turn_Motor = 8;
         public static final int K_Back_Right_Turn_Motor = 3;
 
-        public static final double Front_Left_Motor_Positoon = 0.0;
+        public static final double Front_Left_Motor_Position = 0.0;
     }
 }
