@@ -49,9 +49,6 @@ class SwerveModule{
 
     public void setDesiredState(SwerveModuleState state){
         desiredState = state;
-    
-        Drive_Motor.setVoltage(1);
-        Direction_Motor.setVoltage(2);
     }
 }
 
