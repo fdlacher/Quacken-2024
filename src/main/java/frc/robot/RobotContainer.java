@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -36,6 +37,7 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = 
   new CommandXboxController(OIConstants.kDriverControllerPort);
+  private final Joystick m_joysticks = new Joystick(OIConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer() {
@@ -53,13 +55,6 @@ public class RobotContainer {
    * joysticks}.
    */
     public RobotContainer(){
-      swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
-        swerveSubsystem,
-        ()-> m_driverController.getLeftY(),
-        ()-> m_driverController.getLeftX(),
-        ()-> m_driverController.getRightX(),
-        ()-> m_driverController.getRawAxis(OIConstants.kDriverFieldOrientedButtonIdx)
-      ));
       configureBindings();
     }
 
@@ -72,7 +67,6 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
      CANSparkMax FrontLeftMotor = new CANSparkMax(1, MotorType.kBrushless);
-     m_driverController.y().whileTrue(()-> swerveSubsystem.zeroHeading());
   }
 
   /**
