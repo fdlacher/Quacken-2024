@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AHRS;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -10,6 +11,11 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 //import com.kauailabs.navx.frc.AHRS; get gyro
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.util.sendable.Sendable; 
+import edu.wpi.first.wpilibj.interfaces.Gyro; 
+import java.lang.AutoCloseable;
+
+
 
 public class SwerveSubsystem extends SubsystemBase{
     private final SwerveModule frontLeft = new SwerveModule(
@@ -49,7 +55,7 @@ public class SwerveSubsystem extends SubsystemBase{
         DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
     private final AHRS gyro = new AHRS(SPI.Port.kMXP);
-
+    
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
             new Rotation2d(0));
 
