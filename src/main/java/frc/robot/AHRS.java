@@ -8,5 +8,5 @@ import java.lang.AutoCloseable;
 public class AHRS extends java.lang.Object {
 public AHRS(Port kmxp) { 
     AHRS ahrs = new AHRS(kmxp);
-}
+    }
 }   
