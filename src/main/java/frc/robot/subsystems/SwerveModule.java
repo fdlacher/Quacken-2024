@@ -26,7 +26,7 @@ public class SwerveModule {
 
     private final PIDController turningPIDController;
 
-    private final AnalogInput absoluteEncoder;
+    //private final AnalogInput absoluteEncoder;
     private final boolean absoluteEncoderReversed;
     private final double absoluteEncoderOffsetRad;
 
@@ -35,7 +35,6 @@ public class SwerveModule {
 
         this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
         this.absoluteEncoderReversed = absoluteEncoderReversed;
-         absoluteEncoder = new AnalogInput(absoluteEncoderID); // find out what AnalogInput does
 
         this.driveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
         this.turnMotor = new CANSparkMax(turningMotorID, MotorType.kBrushless);
@@ -70,17 +69,19 @@ public class SwerveModule {
     public double getTurningVelocity (){
         return turnEncoder.getVelocity();
     }
+    /*
     public double getAbsoluteEncoderRad (){
         double angle = absoluteEncoder.getVoltage() / RobotController.getVoltage5V();
         angle *= 2.0*Math.PI;
         angle *= absoluteEncoderOffsetRad;
         return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
     }
-
+    */
     public void resetEncoders(){
         driveEncoder.setPosition(0);
-        turnEncoder.setPosition(getAbsoluteEncoderRad());
+        turnEncoder.setPosition(0);
     }
+   
     
     public SwerveModuleState getState(){
         return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningPosition()));
