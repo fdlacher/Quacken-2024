@@ -54,22 +54,21 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
     private final AHRS gyro = new AHRS(SPI.Port.kMXP);
-/* 
-    private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
-            new Rotation2d(0),  new SwerveModule[] {
-                frontLeft.getDrivePostion(),
-                frontRight,
-                backLeft,
-                backRight}); // place swerve module positions
-                */
-    private final SwerveDriveOdometry odometer = 
-                new SwerveDriveOdometry( 
-                    DriveConstants.kDriveKinematics, 
-                    AHRS.getRotation2d(),
-                   getSwerveModulePosition(), 
-                   getPose()//Might not be the right method
-                    );
-                
+    /*
+     * private final SwerveDriveOdometry odometer = new
+     * SwerveDriveOdometry(DriveConstants.kDriveKinematics,
+     * new Rotation2d(0), new SwerveModule[] {
+     * frontLeft.getDrivePostion(),
+     * frontRight,
+     * backLeft,
+     * backRight}); // place swerve module positions
+     */
+    private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(
+            DriveConstants.kDriveKinematics,
+            AHRS.getRotation2d(),
+            getSwerveModulePosition(),
+            getPose()// Might not be the right method
+    );
 
     public SwerveSubsystem() {
         new Thread(() -> {
@@ -118,16 +117,17 @@ public class SwerveSubsystem extends SubsystemBase {
         backLeft.stop();
         backRight.stop();
     }
-    public SwerveModulePosition[] getSwerveModulePosition() { 
 
-        return     
-        new SwerveModulePosition[] {    
-            frontLeft.getPosition(),
-            frontRight.getPosition(),
-            backLeft.getPosition(),
-            backRight.getPosition()
+    public SwerveModulePosition[] getSwerveModulePosition() {
+
+        return new SwerveModulePosition[] {
+                frontLeft.getPosition(),
+                frontRight.getPosition(),
+                backLeft.getPosition(),
+                backRight.getPosition()
         };
     }
+
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
         frontLeft.setDesiredState(desiredStates[0]);
