@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap.ModuleConstants;
+import frc.robot.RobotMap.DriveConstants;
 
 public class SwerveModule {
 
@@ -90,7 +91,7 @@ public class SwerveModule {
         }
 
         state = SwerveModuleState.optimize(state, getState().angle);
-        driveMotor.set(state.speedMetersPerSecond / ModuleConstants.kPhysicalMaxSpeedMetersPerSecond);//new constant
+        driveMotor.set(state.speedMetersPerSecond / driveConstants.kPhysicalMaxSpeedMetersPerSecond);//new constant
         turnMotor.set(turningPIDController.calculate(getTurningPosition(),state.angle.getRadians()));
         SmartDashboard.putString("Swerve[" + "] state" , state.toString());
     }

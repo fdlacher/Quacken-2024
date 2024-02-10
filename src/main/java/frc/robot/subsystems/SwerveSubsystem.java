@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotMap.DriveConstants;
+import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -13,40 +13,39 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveSubsystem extends SubsystemBase{
     private final SwerveModule frontLeft = new SwerveModule(
-        DriveConstants.K_Front_Left_Drive_Motor_Port,
-        DriveConstants.K_Front_Left_Turn_Motor_Port,
-        DriveConstants.K_Front_Left_Drive_Encoder_Reversed,
+        DriveConstants.kFrontLeftDriveMotorPort,
+        DriveConstants.kFrontLeftTurningMotorPort,
+        DriveConstants.kFrontLeftDriveEncoderReversed,
         DriveConstants.K_Front_Left_Turn_Encoder_Reversed,
-        DriveConstants.K_Front_Left_Drive_Absolute_Encoder_Port,
+        DriveConstants.kFrontLeftDriveAbsoluteEncoderPort,
         DriveConstants.K_Front_Left_Drive_Absolute_Encoder_Offset_Rad,
-        DriveConstants.K_Front_Left_Drive_Absolute_Encoder_Reversed);
+        DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
 
     private final SwerveModule frontRight = new SwerveModule(
-        DriveConstants.K_Front_Right_Drive_Motor_Port,
-        DriveConstants.K_Front_Right_Turn_Motor_Port,
-        DriveConstants.K_Front_Right_Drive_Encoder_Reversed,
+        DriveConstants.kFrontRightDriveMotorPort,
+        DriveConstants.kFrontRightTurningMotorPort,
+        DriveConstants.kFrontRightDriveEncoderReversed,
         DriveConstants.K_Front_Right_Turn_Encoder_Reversed,
-        DriveConstants.K_Front_Right_Drive_Absolute_Encoder_Port,
+        DriveConstants.kFrontRightDriveAbsoluteEncoderPort,
         DriveConstants.K_Front_Right_Drive_Absolute_Encoder_Offset_Rad,
-        DriveConstants.K_Front_Right_Drive_Absolute_Encoder_Reversed);
+        DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
 
     private final SwerveModule backLeft = new SwerveModule(
-        DriveConstants.K_Back_Left_Drive_Motor_Port,
-        DriveConstants.K_Back_Left_Turn_Motor_Port,
-        DriveConstants.K_Back_Left_Drive_Encoder_Reversed,
+        DriveConstants.kBackLeftDriveMotorPort,
+        DriveConstants.kBackLeftTurningMotorPort,
+        DriveConstants.kBackLeftDriveEncoderReversed,
         DriveConstants.K_Back_Left_Turn_Encoder_Reversed,
-        DriveConstants.K_Back_Left_Drive_Absolute_Encoder_Port,
-        DriveConstants.K_Back_Left_Drive_Absolute_Encoder_Offset_Rad,
-        DriveConstants.K_Back_Left_Drive_Absolute_Encoder_Reversed);
+        DriveConstants.kBackLeftDriveAbsoluteEncoderPort, //abso enc port
+        DriveConstants.kBackLeftDriveAbsoluteEncoderReversed); // abs enc rev
 
     private final SwerveModule backRight = new SwerveModule(
-        DriveConstants.K_Back_Right_Drive_Motor_Port,
-        DriveConstants.K_Back_Right_Turn_Motor_Port,
-        DriveConstants.K_Back_Right_Drive_Encoder_Reversed,
+        DriveConstants.kBackRightDriveMotorPort,
+        DriveConstants.kBackRightTurningMotorPort,
+        DriveConstants.kBackRightDriveEncoderReversed,
         DriveConstants.K_Back_Left_Turn_Encoder_Reversed,
-        DriveConstants.K_Back_Right_Drive_Absolute_Encoder_Port,
+        DriveConstants.kBackRightDriveAbsoluteEncoderPort,
         DriveConstants.K_Back_Right_Drive_Absolute_Encoder_Offset_Rad,
-        DriveConstants.K_Back_Right_Drive_Absolute_Encoder_Reversed);
+        DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
     private final AHRS gyro = new AHRS(SPI.Port.kMXP);
 
