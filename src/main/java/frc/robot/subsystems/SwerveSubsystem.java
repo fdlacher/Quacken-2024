@@ -70,11 +70,11 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void zeroHeading() {
-        gyro.reset();
+        gyro.reset(gyro);//I dont think this will work
     }
 
     public double getHeading() {
-        return Math.IEEEremainder(gyro.getAngle(), 360);
+        return Math.IEEEremainder(gyro.getAngle(gyro), 360);//I dont think this will work
     }
 
     public Rotation2d getRotation2d() {
