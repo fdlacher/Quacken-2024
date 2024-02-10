@@ -40,7 +40,7 @@ public class SwerveSubsystem extends SubsystemBase{
         DriveConstants.kBackLeftDriveMotorPort,
         DriveConstants.kBackLeftTurningMotorPort,
         DriveConstants.kBackLeftDriveEncoderReversed,
-        DriveConstants.kBackRightTurningEncoderReversed,
+        DriveConstants.kBackLeftTurningEncoderReversed,
         DriveConstants.kBackLeftDriveAbsoluteEncoderPort, //abso enc port
         DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad,
         DriveConstants.kBackLeftDriveAbsoluteEncoderReversed); // abs enc rev
@@ -49,7 +49,7 @@ public class SwerveSubsystem extends SubsystemBase{
         DriveConstants.kBackRightDriveMotorPort,
         DriveConstants.kBackRightTurningMotorPort,
         DriveConstants.kBackRightDriveEncoderReversed,
-        DriveConstants.kBackLeftTurningEncoderReversed,
+        DriveConstants.kBackRightTurningEncoderReversed,
         DriveConstants.kBackRightDriveAbsoluteEncoderPort,
         DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
         DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
