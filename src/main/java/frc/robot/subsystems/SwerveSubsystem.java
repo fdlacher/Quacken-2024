@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.AHRS;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -15,6 +14,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import java.lang.AutoCloseable;
+
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.SPI.Port;
 
 public class SwerveSubsystem extends SubsystemBase {
     private final SwerveModule frontLeft = new SwerveModule(
@@ -65,9 +68,9 @@ public class SwerveSubsystem extends SubsystemBase {
      */
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(
             DriveConstants.kDriveKinematics,
-            AHRS.getRotation2d(),
+            gyro.getRotation2d(),
             getSwerveModulePosition(),
-            getPose()// Might not be the right method
+            getPose()// Might not be the right method, not sure
     );
 
     public SwerveSubsystem() {
@@ -81,15 +84,15 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void zeroHeading() {
-        gyro.reset(gyro);// I dont think this will work
+        gyro.reset();// this might work
     }
 
     public double getHeading() {
-        return Math.IEEEremainder(gyro.getAngle(gyro), 360);// I dont think this will work
+        return Math.IEEEremainder(gyro.getAngle(), 360);// This might work
     }
 
     public double testGyro() {
-        return gyro.getAngle(gyro);
+        return gyro.getAngle();
     }
 
     public Rotation2d getRotation2d() {
