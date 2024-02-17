@@ -58,21 +58,22 @@ public class SwerveSubsystem extends SubsystemBase {
 
     private final AHRS gyro = new AHRS(SPI.Port.kMXP);
     /*
-     private final SwerveDriveOdometry odometer = new
-     SwerveDriveOdometry(DriveConstants.kDriveKinematics,
-     new Rotation2d(0), new SwerveModule[] {
-     frontLeft.getDrivePostion(),
-     frontRight,
-     backLeft,
-     backRight}); // place swerve module positions
+     * private final SwerveDriveOdometry odometer = new
+     * SwerveDriveOdometry(DriveConstants.kDriveKinematics,
+     * new Rotation2d(0), new SwerveModule[] {
+     * frontLeft.getDrivePostion(),
+     * frontRight,
+     * backLeft,
+     * backRight}); // place swerve module positions
      */
-     
+
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(
             DriveConstants.kDriveKinematics,
             gyro.getRotation2d(),
             getSwerveModulePosition(),
             new Pose2d()
-            //getPose()// Might not be the right method, not sure. doesnt work because odometer hasnt been made yet
+    // getPose()// Might not be the right method, not sure. doesnt work because
+    // odometer hasnt been made yet
     );
 
     public SwerveSubsystem() {
@@ -116,19 +117,19 @@ public class SwerveSubsystem extends SubsystemBase {
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
 
         SwerveModulePosition[] testArray = getSwerveModulePosition();
-        
+
         double[] SwerveArray = {
-        testArray[0].distanceMeters,
-        testArray[0].angle.getRadians(),
-        
-        testArray[1].distanceMeters,
-        testArray[1].angle.getRadians(),
+                testArray[0].distanceMeters,
+                testArray[0].angle.getRadians(),
 
-        testArray[2].distanceMeters,
-        testArray[2].angle.getRadians(),
+                testArray[1].distanceMeters,
+                testArray[1].angle.getRadians(),
 
-        testArray[3].distanceMeters,
-        testArray[3].angle.getRadians(),
+                testArray[2].distanceMeters,
+                testArray[2].angle.getRadians(),
+
+                testArray[3].distanceMeters,
+                testArray[3].angle.getRadians(),
         };
 
         SmartDashboard.putNumberArray(getName(), SwerveArray);

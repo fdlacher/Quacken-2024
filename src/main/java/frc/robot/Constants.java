@@ -44,8 +44,8 @@ public final class Constants {
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
-        //motor ports
-        public static final int kFrontLeftDriveMotorPort = 10; 
+        // motor ports
+        public static final int kFrontLeftDriveMotorPort = 10;
         public static final int kBackLeftDriveMotorPort = 19;
         public static final int kFrontRightDriveMotorPort = 9;
         public static final int kBackRightDriveMotorPort = 2;
@@ -54,7 +54,6 @@ public final class Constants {
         public static final int kBackLeftTurningMotorPort = 18;
         public static final int kFrontRightTurningMotorPort = 8;
         public static final int kBackRightTurningMotorPort = 3;
-
 
         public static final boolean kFrontLeftTurningEncoderReversed = true;
         public static final boolean kBackLeftTurningEncoderReversed = true;
@@ -66,7 +65,7 @@ public final class Constants {
         public static final boolean kFrontRightDriveEncoderReversed = false;
         public static final boolean kBackRightDriveEncoderReversed = false;
 
-        //encoder Ports
+        // encoder Ports
         public static final int kFrontLeftDriveAbsoluteEncoderPort = 0;
         public static final int kBackLeftDriveAbsoluteEncoderPort = 2;
         public static final int kFrontRightDriveAbsoluteEncoderPort = 1;
@@ -110,8 +109,8 @@ public final class Constants {
 
     public static final class OIConstants {
         public static final int kDriverControllerPort = 0;
-        
-        //pretty sure this is better dependant on the controller
+
+        // pretty sure this is better dependant on the controller
         public static final int kDriverYAxis = 1;
         public static final int kDriverXAxis = 0;
         public static final int kDriverRotAxis = 4;
