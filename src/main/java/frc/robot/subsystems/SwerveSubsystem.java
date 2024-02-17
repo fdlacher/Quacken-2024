@@ -15,7 +15,7 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import java.lang.AutoCloseable;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.frc.AHRS; // dnag it, found it the same time you did
 
 import edu.wpi.first.wpilibj.SPI.Port;
 
