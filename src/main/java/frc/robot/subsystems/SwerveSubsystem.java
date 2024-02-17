@@ -8,12 +8,16 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
 //import com.kauailabs.navx.frc.AHRS; get gyro
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.util.sendable.Sendable;
 //import edu.wpi.first.wpilibj.interfaces.Gyro;
 //import java.lang.AutoCloseable;
+
+import java.lang.System.Logger;
 
 import com.kauailabs.navx.frc.AHRS; // dnag it, found it the same time you did
 
@@ -116,23 +120,6 @@ public class SwerveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Robot Heading", getHeading());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
 
-        SwerveModulePosition[] testArray = getSwerveModulePosition();
-
-        double[] SwerveArray = {
-                testArray[0].distanceMeters,
-                testArray[0].angle.getRadians(),
-
-                testArray[1].distanceMeters,
-                testArray[1].angle.getRadians(),
-
-                testArray[2].distanceMeters,
-                testArray[2].angle.getRadians(),
-
-                testArray[3].distanceMeters,
-                testArray[3].angle.getRadians(),
-        };
-
-        SmartDashboard.putNumberArray(getName(), SwerveArray);
     }
 
     public void stopModules() {
