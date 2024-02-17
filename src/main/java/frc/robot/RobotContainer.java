@@ -34,7 +34,7 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = 
   new CommandXboxController(OIConstants.kDriverControllerPort);
-  private final Joystick m_joysticks = new Joystick(OIConstants.kDriverControllerPort);
+  // private final Joystick m_joysticks = new Joystick(OIConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer() {
@@ -54,11 +54,12 @@ public class RobotContainer {
     public RobotContainer(){
       swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
         swerveSubsystem,
-        () -> -m_joysticks.getRawAxis(OIConstants.kDriverXAxis),
-        () -> m_joysticks.getRawAxis(OIConstants.kDriverYAxis),//The swerve drive auto github had x and y switched. 
-        () -> m_joysticks.getRawAxis(OIConstants.kDriverRotAxis),
-        () -> !m_joysticks.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+        () -> -m_driverController.getRawAxis(OIConstants.kDriverXAxis),
+        () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),//The swerve drive auto github had x and y switched. 
+        () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
+        () -> !m_driverController.a().getAsBoolean()));
 
+      
       configureBindings();
 
     }
@@ -67,6 +68,7 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     //new Trigger(m_exampleSubsystem::exampleCondition)
         //.onTrue(new ExampleCommand(m_exampleSubsystem));
+
   }
 
   /**

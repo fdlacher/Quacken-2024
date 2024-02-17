@@ -114,24 +114,6 @@ public class SwerveSubsystem extends SubsystemBase {
         odometer.update(getRotation2d(), getSwerveModulePosition());
         SmartDashboard.putNumber("Robot Heading", getHeading());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-
-        SwerveModulePosition[] testArray = getSwerveModulePosition();
-        
-        double[] SwerveArray = {
-        testArray[0].distanceMeters,
-        testArray[0].angle.getRadians(),
-        
-        testArray[1].distanceMeters,
-        testArray[1].angle.getRadians(),
-
-        testArray[2].distanceMeters,
-        testArray[2].angle.getRadians(),
-
-        testArray[3].distanceMeters,
-        testArray[3].angle.getRadians(),
-        };
-
-        SmartDashboard.putNumberArray(getName(), SwerveArray);
     }
 
     public void stopModules() {
