@@ -55,7 +55,16 @@ public class RobotContainer {
    * joysticks}.
    */
     public RobotContainer(){
+      swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
+        swerveSubsystem,
+        () -> -m_joysticks.getRawAxis(OIConstants.kDriverXAxis),
+        () -> m_joysticks.getRawAxis(OIConstants.kDriverYAxis),//The swerve drive auto github had x and y switched. 
+        () -> m_joysticks.getRawAxis(OIConstants.kDriverRotAxis),
+        () -> !m_joysticks.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+
       configureBindings();
+
+
     }
 
   private void configureBindings() {
