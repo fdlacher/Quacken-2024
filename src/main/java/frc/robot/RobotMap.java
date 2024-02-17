@@ -1,8 +1,5 @@
 package frc.robot;
 
-import com.revrobotics.CANSparkLowLevel;
-
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
 
 public class RobotMap {
