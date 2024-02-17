@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.SwerveJoystickCmd;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -28,7 +27,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
@@ -73,7 +71,6 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-     CANSparkMax FrontLeftMotor = new CANSparkMax(1, MotorType.kBrushless);
   }
 
   /**
