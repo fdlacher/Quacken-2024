@@ -11,13 +11,13 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 //import com.kauailabs.navx.frc.AHRS; get gyro
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.util.sendable.Sendable;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
-import java.lang.AutoCloseable;
+//import edu.wpi.first.util.sendable.Sendable;
+//import edu.wpi.first.wpilibj.interfaces.Gyro;
+//import java.lang.AutoCloseable;
 
 import com.kauailabs.navx.frc.AHRS; // dnag it, found it the same time you did
 
-import edu.wpi.first.wpilibj.SPI.Port;
+//import edu.wpi.first.wpilibj.SPI.Port;
 
 public class SwerveSubsystem extends SubsystemBase {
     private final SwerveModule frontLeft = new SwerveModule(
