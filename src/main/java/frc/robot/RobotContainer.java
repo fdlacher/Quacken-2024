@@ -51,7 +51,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-  private final shooterSubsystem shooterSubsystem = new shooterSubsystem();
+  //private final shooterSubsystem shooterSubsystem = new shooterSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
@@ -81,9 +81,9 @@ public class RobotContainer {
   public RobotContainer() {
     swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
         swerveSubsystem,
-        () -> -m_joysticks.getRawAxis(OIConstants.kDriverXAxis),
-        () -> m_joysticks.getRawAxis(OIConstants.kDriverYAxis), // The swerve drive auto github had x and y switched.
-        () -> m_joysticks.getRawAxis(OIConstants.kDriverRotAxis),
+        () -> -m_driverController.getLeftX(),//getRawAxis(OIConstants.kDriverXAxis),
+        () -> m_driverController.getLeftY(),//getRawAxis(OIConstants.kDriverYAxis), // The swerve drive auto github had x and y switched.
+        () -> m_driverController.getRightX(),//(OIConstants.kDriverRotAxis),
         () -> !m_joysticks.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
     configureBindings();
@@ -94,10 +94,10 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)
     // .onTrue(new ExampleCommand(m_exampleSubsystem));
-    Trigger aButton = m_driverController.a();
-
-      final shootCommand shoot = new shootCommand(shooterSubsystem);
-      aButton.whileTrue(shoot);
+    //Trigger aButton = m_driverController.a();
+    //
+    //final shootCommand shoot = new shootCommand(shooterSubsystem);
+    //aButton.whileTrue(shoot);
       
   }
 
