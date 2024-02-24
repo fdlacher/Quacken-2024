@@ -109,6 +109,7 @@ public final class Constants {
 
     public static final class OIConstants {
         public static final int kDriverControllerPort = 0;
+        public static final int kScorerControllerPort = 1;
 
         // pretty sure this is better dependant on the controller
         public static final int kDriverYAxis = 1;

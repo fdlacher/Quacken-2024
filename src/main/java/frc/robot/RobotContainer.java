@@ -22,6 +22,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.intakeSubsystem;
 import frc.robot.subsystems.shooterSubsystem;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -55,6 +56,7 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
+  private final CommandXboxController m_scorerController= new CommandXboxController(OIConstants.kScorerControllerPort);
   private final Joystick m_joysticks = new Joystick(OIConstants.kDriverControllerPort);
 
   /**
@@ -94,7 +96,7 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)
     // .onTrue(new ExampleCommand(m_exampleSubsystem));
-    Trigger aButton = m_driverController.a();
+    Trigger aButton = m_scorerController.a();
 
       final shootCommand shoot = new shootCommand(shooterSubsystem);
       aButton.whileTrue(shoot);
