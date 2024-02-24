@@ -90,9 +90,9 @@ public class RobotContainer {
   public RobotContainer() {
     swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
         swerveSubsystem,
-        () -> -m_joysticks.getRawAxis(OIConstants.kDriverXAxis),
-        () -> m_joysticks.getRawAxis(OIConstants.kDriverYAxis), // The swerve drive auto github had x and y switched.
-        () -> m_joysticks.getRawAxis(OIConstants.kDriverRotAxis),
+        () -> -m_driverController.getLeftX(),//getRawAxis(OIConstants.kDriverXAxis),
+        () -> m_driverController.getLeftY(),//getRawAxis(OIConstants.kDriverYAxis), // The swerve drive auto github had x and y switched.
+        () -> m_driverController.getRightX(),//(OIConstants.kDriverRotAxis),
         () -> !m_joysticks.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
     configureBindings();
