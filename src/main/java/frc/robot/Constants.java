@@ -38,11 +38,19 @@ public final class Constants {
 
         public static final double intakeSpeed = 0.75;
         
+
         public static final int kShootSetMotor = 0;
         public static final int kRightShootGoalMotor1 = 0;
         public static final int kLeftShootGoalMotor = 0;
+        
 
+        public static final int kleftArmMotor = 0;
+        public static final int kRightArmMotor = 0;
+
+        public static final double armSpeed = 0.25;
     }
+
+
     public static final class DriveConstants {
 
         public static final double robotWidth = Units.inchesToMeters(24);

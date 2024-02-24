@@ -21,9 +21,11 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ScoringConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.commands.armCommand;
 import frc.robot.commands.intakeCommand;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.armSubsystem;
 import frc.robot.subsystems.intakeSubsystem;
 import frc.robot.subsystems.shooterSubsystem;
 
@@ -60,6 +62,7 @@ public class RobotContainer {
     ScoringConstants.kIntakeMotorPort,
     false, 
     false);
+  private final armSubsystem armSubsystem = new armSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
@@ -105,12 +108,19 @@ public class RobotContainer {
     // .onTrue(new ExampleCommand(m_exampleSubsystem));
     Trigger aButton = m_scorerController.a();
     Trigger ybutton = m_scorerController.y();
+    Trigger xbutton = m_scorerController.x();
+    Trigger bbutton = m_scorerController.b();
       final shootCommand shoot = new shootCommand(shooterSubsystem);
       aButton.whileTrue(shoot);
 
       final intakeCommand intake = new intakeCommand(intakeSubsystem);
       ybutton.whileTrue(intake);
-      
+
+      final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armSpeed);
+      xbutton.whileTrue(armUp);
+
+      final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armSpeed);
+      bbutton.whileTrue(armDown);
   }
 
   /**
@@ -119,7 +129,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   
-    //public Command getAutonomousCommand() {
+    //public Command getAutonomousCommand(int choice) {u
       /* 
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
