@@ -108,8 +108,8 @@ public class RobotContainer {
       final shootCommand shoot = new shootCommand(shooterSubsystem);
       aButton.whileTrue(shoot);
 
-      //final intakeCommand intake = intakeCommand(intakeSubsystem);
-      //ybutton.whileTrue(intake);
+      final intakeCommand intake = new intakeCommand(intakeSubsystem);
+      ybutton.whileTrue(intake);
       
   }
 
