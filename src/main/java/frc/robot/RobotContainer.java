@@ -18,10 +18,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.ScoringConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.commands.intakeCommand;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.intakeSubsystem;
 import frc.robot.subsystems.shooterSubsystem;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -51,10 +54,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-  //private final shooterSubsystem shooterSubsystem = new shooterSubsystem();
+  private final shooterSubsystem shooterSubsystem = new shooterSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
+  private final CommandXboxController m_scorerController= new CommandXboxController(OIConstants.kScorerControllerPort);
   private final Joystick m_joysticks = new Joystick(OIConstants.kDriverControllerPort);
 
   /**
@@ -94,10 +98,10 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)
     // .onTrue(new ExampleCommand(m_exampleSubsystem));
-    //Trigger aButton = m_driverController.a();
-    //
-    //final shootCommand shoot = new shootCommand(shooterSubsystem);
-    //aButton.whileTrue(shoot);
+    Trigger aButton = m_driverController.a();
+
+      final shootCommand shoot = new shootCommand(shooterSubsystem);
+      aButton.whileTrue(shoot);
       
   }
 

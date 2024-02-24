@@ -32,7 +32,17 @@ public final class Constants {
         public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
         public static final double kPTurning = 0.5;
     }
+    public static final class ScoringConstants{ 
+        public static final int kDirectionalIntakeMotorPort = 0;
+        public static final int kIntakeMotorPort = 0;
 
+        public static final double intakeSpeed = 0.75;
+        
+        public static final int kShootSetMotor = 0;
+        public static final int kRightShootGoalMotor1 = 0;
+        public static final int kLeftShootGoalMotor = 0;
+
+    }
     public static final class DriveConstants {
 
         public static final double robotWidth = Units.inchesToMeters(24);
@@ -109,6 +119,7 @@ public final class Constants {
 
     public static final class OIConstants {
         public static final int kDriverControllerPort = 0;
+        public static final int kScorerControllerPort = 1;
 
         // pretty sure this is better dependant on the controller
         public static final int kDriverYAxis = 1;
