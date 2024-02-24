@@ -36,6 +36,8 @@ public final class Constants {
         public static final int kDirectionalIntakeMotorPort = 0;
         public static final int kIntakeMotorPort = 0;
 
+        public static final double intakeSpeed = 0.75;
+        
         public static final int kShootSetMotor = 0;
         public static final int kRightShootGoalMotor1 = 0;
         public static final int kLeftShootGoalMotor = 0;
