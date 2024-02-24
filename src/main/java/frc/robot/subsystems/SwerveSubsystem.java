@@ -147,17 +147,17 @@ public class SwerveSubsystem extends SubsystemBase {
         frontRight.setDesiredState(desiredStates[1]);
         backLeft.setDesiredState(desiredStates[2]);
         backRight.setDesiredState(desiredStates[3]);
-        backHand[0] = desiredStates[0].speedMetersPerSecond;
-        backHand[1] = desiredStates[0].angle.getRadians();
+        backHand[1] = desiredStates[0].speedMetersPerSecond;
+        backHand[0] = desiredStates[0].angle.getRadians();
 
-        backHand[2] = desiredStates[1].speedMetersPerSecond;
-        backHand[3] = desiredStates[1].angle.getRadians();
+        backHand[3] = desiredStates[1].speedMetersPerSecond;
+        backHand[2] = desiredStates[1].angle.getRadians();
 
-        backHand[4] = desiredStates[2].speedMetersPerSecond;
-        backHand[5] = desiredStates[2].angle.getRadians();
+        backHand[5] = desiredStates[2].speedMetersPerSecond;
+        backHand[4] = desiredStates[2].angle.getRadians();
 
-        backHand[6] = desiredStates[3].speedMetersPerSecond;
-        backHand[7] = desiredStates[3].angle.getRadians();
+        backHand[7] = desiredStates[3].speedMetersPerSecond;
+        backHand[6] = desiredStates[3].angle.getRadians();
 
     }
 
