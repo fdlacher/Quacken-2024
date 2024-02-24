@@ -24,6 +24,8 @@ import com.kauailabs.navx.frc.AHRS; // dnag it, found it the same time you did
 //import edu.wpi.first.wpilibj.SPI.Port;
 
 public class SwerveSubsystem extends SubsystemBase {
+    public double[] backHand = {0,0,0,0,0,0,0,0};
+
     private final SwerveModule frontLeft = new SwerveModule(
             DriveConstants.kFrontLeftDriveMotorPort,
             DriveConstants.kFrontLeftTurningMotorPort,
@@ -120,6 +122,7 @@ public class SwerveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Robot Heading", getHeading());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
 
+        SmartDashboard.putNumberArray("SwerveModule", backHand);
     }
 
     public void stopModules() {
@@ -145,6 +148,18 @@ public class SwerveSubsystem extends SubsystemBase {
         frontRight.setDesiredState(desiredStates[1]);
         backLeft.setDesiredState(desiredStates[2]);
         backRight.setDesiredState(desiredStates[3]);
+        backHand[0] = desiredStates[0].speedMetersPerSecond;
+        backHand[1] = desiredStates[0].angle.getRadians();
+
+        backHand[2] = desiredStates[1].speedMetersPerSecond;
+        backHand[3] = desiredStates[1].angle.getRadians();
+
+        backHand[4] = desiredStates[2].speedMetersPerSecond;
+        backHand[5] = desiredStates[2].angle.getRadians();
+
+        backHand[6] = desiredStates[3].speedMetersPerSecond;
+        backHand[7] = desiredStates[3].angle.getRadians();
+
     }
 
     public SwerveModuleState[] getSwerveModuleStateArray() {

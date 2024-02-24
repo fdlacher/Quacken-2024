@@ -31,11 +31,11 @@ public class intakeSubsystem extends SubsystemBase{
         }
     }
 
-    public void enableIntake(){
-        directionalIntakeMotor.set(1);// value, should probally change
-        intakeMotor.set(1); // temp value
+    public void enableIntake(double speed){
+        directionalIntakeMotor.set(speed);// value, should probally change
+        intakeMotor.set(speed); // temp value
     }
-    
+
     public void disableIntake(){
         directionalIntakeMotor.stopMotor();
         intakeMotor.stopMotor();
