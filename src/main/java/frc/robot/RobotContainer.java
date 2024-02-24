@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.ScoringConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.intakeCommand;
@@ -54,6 +55,11 @@ public class RobotContainer {
 
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   private final shooterSubsystem shooterSubsystem = new shooterSubsystem();
+  private final intakeSubsystem intakeSubsystem = new intakeSubsystem(
+    ScoringConstants.kDirectionalIntakeMotorPort, 
+    ScoringConstants.kIntakeMotorPort,
+    false, 
+    false);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
@@ -102,8 +108,8 @@ public class RobotContainer {
       final shootCommand shoot = new shootCommand(shooterSubsystem);
       aButton.whileTrue(shoot);
 
-      final intakeCommand intake = intakeCommand(intakeSubsystem);
-      ybutton.whileTrue(intake);
+      //final intakeCommand intake = intakeCommand(intakeSubsystem);
+      //ybutton.whileTrue(intake);
       
   }
 
