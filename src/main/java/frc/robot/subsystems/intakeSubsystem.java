@@ -17,6 +17,7 @@ public class intakeSubsystem extends SubsystemBase{
         directionalIntakeMotor.setInverted(directionalIntakeMotorReversed);
         intakeMotor.setInverted(intakeMotorReversed);
     }
+    
     public void reverseDirectionalIntake(){
         // if statement to revese depending on wether it is already inverted or not
         if (directionalIntakeMotor.getInverted()){

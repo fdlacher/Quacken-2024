@@ -20,6 +20,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.commands.intakeCommand;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.intakeSubsystem;
@@ -97,9 +98,12 @@ public class RobotContainer {
     // new Trigger(m_exampleSubsystem::exampleCondition)
     // .onTrue(new ExampleCommand(m_exampleSubsystem));
     Trigger aButton = m_scorerController.a();
-
+    Trigger ybutton = m_scorerController.y();
       final shootCommand shoot = new shootCommand(shooterSubsystem);
       aButton.whileTrue(shoot);
+
+      final intakeCommand intake = intakeCommand(intakeSubsystem);
+      ybutton.whileTrue(intake);
       
   }
 
