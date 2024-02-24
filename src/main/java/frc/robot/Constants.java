@@ -33,19 +33,19 @@ public final class Constants {
         public static final double kPTurning = 0.5;
     }
     public static final class ScoringConstants{ 
-        public static final int kDirectionalIntakeMotorPort = 0;
-        public static final int kIntakeMotorPort = 0;
+        public static final int kDirectionalIntakeMotorPort = 20;
+        public static final int kIntakeMotorPort = 21;
 
         public static final double intakeSpeed = 0.75;
         
 
-        public static final int kShootSetMotor = 0;
-        public static final int kRightShootGoalMotor1 = 0;
-        public static final int kLeftShootGoalMotor = 0;
+        public static final int kShootSetMotor =22;
+        public static final int kRightShootGoalMotor1 = 23;
+        public static final int kLeftShootGoalMotor = 24;
         
 
-        public static final int kleftArmMotor = 0;
-        public static final int kRightArmMotor = 0;
+        public static final int kleftArmMotor = 25;
+        public static final int kRightArmMotor = 26;
 
         public static final double armSpeed = 0.25;
     }
