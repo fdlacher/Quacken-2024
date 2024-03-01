@@ -1,8 +1,11 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AnalogInput;
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkAnalogSensor;
+import com.revrobotics.SparkMaxAnalogSensor;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -52,7 +55,7 @@ public class SwerveModule {
         turnEncoder.setPositionConversionFactor(ModuleConstants.KDriveEncoderRot2Meter);
         turnEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRPM2MetersPerSec);
 
-        turningPIDController = new PIDController(ModuleConstants.KPTurning, 0, 0);
+        turningPIDController = new PIDController(ModuleConstants.KPTurning, 0, 0);//Tune this
         turningPIDController.enableContinuousInput(-Math.PI, Math.PI); // informs that its a circle
 
         resetEncoders();

@@ -19,6 +19,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 //import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
 public final class Constants {
 
@@ -54,6 +56,7 @@ public final class Constants {
 
     public static final class DriveConstants {
 
+
         public static final double robotWidth = Units.inchesToMeters(24);
         // Distance between right and left wheels
         public static final double robotLength = Units.inchesToMeters(24);
@@ -65,14 +68,14 @@ public final class Constants {
                 new Translation2d(-robotWidth / 2, -robotLength / 2));
         // motor ports
         public static final int kFrontLeftDriveMotorPort = 13;
-        public static final int kBackLeftDriveMotorPort = 2;
+        public static final int kBackLeftDriveMotorPort = 3;
         public static final int kFrontRightDriveMotorPort =16;
-        public static final int kBackRightDriveMotorPort = 5;
+        public static final int kBackRightDriveMotorPort = 6;
 
         public static final int kFrontLeftTurningMotorPort = 12;
-        public static final int kBackLeftTurningMotorPort = 1;
+        public static final int kBackLeftTurningMotorPort = 2;
         public static final int kFrontRightTurningMotorPort = 15;
-        public static final int kBackRightTurningMotorPort = 4;
+        public static final int kBackRightTurningMotorPort = 5;
 
         public static final boolean kFrontLeftTurningEncoderReversed = true;
         public static final boolean kBackLeftTurningEncoderReversed = true;
@@ -127,6 +130,7 @@ public final class Constants {
     }
 
     public static final class OIConstants {
+        PowerDistribution examplePD = new PowerDistribution(1, ModuleType.kRev);
         public static final int kDriverControllerPort = 0;
         public static final int kScorerControllerPort = 1;
 
