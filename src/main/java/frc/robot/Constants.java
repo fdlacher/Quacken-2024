@@ -33,19 +33,20 @@ public final class Constants {
         public static final double kPTurning = 0.5;
     }
     public static final class ScoringConstants{ 
+        // Ethan's list of ports says that there is no directional intake, only left or right
         public static final int kDirectionalIntakeMotorPort = 20;
-        public static final int kIntakeMotorPort = 21;
+        public static final int kIntakeMotorPort = 3;
 
         public static final double intakeSpeed = 0.75;
         
 
-        public static final int kShootSetMotor =22;
-        public static final int kRightShootGoalMotor1 = 23;
-        public static final int kLeftShootGoalMotor = 24;
+        public static final int kShootSetMotor = 19;//Indexer?
+        public static final int kRightShootGoalMotor1 = 18;
+        public static final int kLeftShootGoalMotor = 17;
         
 
-        public static final int kleftArmMotor = 25;
-        public static final int kRightArmMotor = 26;
+        public static final int kleftArmMotor = 11;//Pivot?
+        public static final int kRightArmMotor = 14;//Pivot?
 
         public static final double armSpeed = 0.25;
     }
@@ -63,15 +64,15 @@ public final class Constants {
                 new Translation2d(-robotWidth / 2, robotLength / 2),
                 new Translation2d(-robotWidth / 2, -robotLength / 2));
         // motor ports
-        public static final int kFrontLeftDriveMotorPort = 10;
-        public static final int kBackLeftDriveMotorPort = 19;
-        public static final int kFrontRightDriveMotorPort = 9;
-        public static final int kBackRightDriveMotorPort = 2;
+        public static final int kFrontLeftDriveMotorPort = 13;
+        public static final int kBackLeftDriveMotorPort = 2;
+        public static final int kFrontRightDriveMotorPort =16;
+        public static final int kBackRightDriveMotorPort = 5;
 
-        public static final int kFrontLeftTurningMotorPort = 11;
-        public static final int kBackLeftTurningMotorPort = 18;
-        public static final int kFrontRightTurningMotorPort = 8;
-        public static final int kBackRightTurningMotorPort = 3;
+        public static final int kFrontLeftTurningMotorPort = 12;
+        public static final int kBackLeftTurningMotorPort = 1;
+        public static final int kFrontRightTurningMotorPort = 15;
+        public static final int kBackRightTurningMotorPort = 4;
 
         public static final boolean kFrontLeftTurningEncoderReversed = true;
         public static final boolean kBackLeftTurningEncoderReversed = true;
