@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.AnalogInput;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
@@ -27,7 +28,7 @@ public class SwerveModule {
 
     private final PIDController turningPIDController;
 
-    // private final AnalogInput absoluteEncoder;
+    private final AbsoluteEncoder absoluteEncoder;
     private final boolean absoluteEncoderReversed;
     private final double absoluteEncoderOffsetRad;
 
@@ -38,8 +39,6 @@ public class SwerveModule {
         this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
         this.absoluteEncoderReversed = absoluteEncoderReversed;
 
-        // absoluteEncoder = new AnalogInput();
-
         this.driveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
         this.turnMotor = new CANSparkMax(turningMotorID, MotorType.kBrushless);
 
@@ -48,6 +47,8 @@ public class SwerveModule {
 
         driveEncoder = driveMotor.getEncoder();
         turnEncoder = turnMotor.getEncoder();
+
+        absoluteEncoder = turnMotor.getAbsoluteEncoder();
 
         // converstion factor
         driveEncoder.setPositionConversionFactor(ModuleConstants.KDriveEncoderRot2Meter);
@@ -77,17 +78,17 @@ public class SwerveModule {
         return turnEncoder.getVelocity();
     }
 
-    /*
-     * public double getAbsoluteEncoderRad (){
-     * double angle = absoluteEncoder.getVoltage() / RobotController.getVoltage5V();
-     * angle *= 2.0 * Math.PI;
-     * angle *= absoluteEncoderOffsetRad;
-     * return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
-     * }
-     */
+    
+    public double getAbsoluteEncoderRad (){
+    double angle = absoluteEncoder.getPosition();
+    angle *= 2.0 * Math.PI;
+    angle *= absoluteEncoderOffsetRad;
+    return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
+    }
+    
     public void resetEncoders() {
         driveEncoder.setPosition(0);
-        turnEncoder.setPosition(0);
+        turnEncoder.setPosition(getAbsoluteEncoderRad());
     }
 
     public SwerveModuleState getState() {

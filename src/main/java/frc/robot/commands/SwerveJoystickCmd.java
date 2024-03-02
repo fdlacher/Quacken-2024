@@ -52,8 +52,8 @@ public class SwerveJoystickCmd extends Command {
         double turningSpeed = turningSpdFunction.get();
 
         // deadband
-        xSpeed = Math.abs(xSpeed) > OIConstants.kDeadband ? xSpeed : 0.0;
-        ySpeed = Math.abs(ySpeed) > OIConstants.kDeadband ? ySpeed : 0.0;
+        xSpeed = (Math.abs(xSpeed) > OIConstants.kDeadband) ? xSpeed : 0.0;
+        ySpeed = (Math.abs(ySpeed) > OIConstants.kDeadband) ? ySpeed : 0.0;
         turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
 
         xSpeed = xLimiter.calculate(xSpeed) * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
