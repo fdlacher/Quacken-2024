@@ -110,6 +110,8 @@ public class RobotContainer {
     Trigger ybutton = m_scorerController.y();
     Trigger xbutton = m_scorerController.x();
     Trigger bbutton = m_scorerController.b();
+    Trigger dUP = m_scorerController.povUp();
+    Trigger dDOWN = m_scorerController.povDown();
       final shootCommand shoot = new shootCommand(shooterSubsystem);
       aButton.whileTrue(shoot);
 
@@ -117,10 +119,10 @@ public class RobotContainer {
       // ybutton.whileTrue(intake);
 
       final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armSpeed);
-      xbutton.whileTrue(armUp);
+      dUP.whileTrue(armUp);
 
       final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armSpeed);
-      bbutton.whileTrue(armDown);
+      dDOWN.whileTrue(armDown);
   }
 
   /**
