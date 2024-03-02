@@ -33,12 +33,12 @@ public class RobotMap {
 
     public static final class ModuleConstants {
         public static final double KWheelDiameterMeters = Units.inchesToMeters(0/* input wheel diameter */);
-        public static final double kDriveMotorGearRatio = 1 / 5/* gear ratio */;
-        public static final double KTurningMotorGearRatio = 1 / 5/* gear ratio */;
+        public static final double kDriveMotorGearRatio = 1.0 / 5.0/* gear ratio */;
+        public static final double KTurningMotorGearRatio = 1.0 / 5.0/* gear ratio */;
         public static final double KDriveEncoderRot2Meter = kDriveMotorGearRatio * Math.PI * KWheelDiameterMeters;
         public static final double kTurningEncoderRot2Rad = KTurningMotorGearRatio * 2 * Math.PI;
-        public static final double kDriveEncoderRPM2MetersPerSec = KDriveEncoderRot2Meter / 60;
-        public static final double kTurningEncoderRPM2Meter = kTurningEncoderRot2Rad / 60;
+        public static final double kDriveEncoderRPM2MetersPerSec = KDriveEncoderRot2Meter / 60.0;
+        public static final double kTurningEncoderRPM2Meter = kTurningEncoderRot2Rad / 60.0;
         public static final double KPTurning = 0.5;
 
     }
