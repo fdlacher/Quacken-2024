@@ -22,11 +22,11 @@ import frc.robot.Constants.ScoringConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.armCommand;
-//import frc.robot.commands.intakeCommand;
+import frc.robot.commands.intakeCommand;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.armSubsystem;
-//import frc.robot.subsystems.intakeSubsystem;
+import frc.robot.subsystems.intakeSubsystem;
 import frc.robot.subsystems.shooterSubsystem;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -57,11 +57,11 @@ public class RobotContainer {
 
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   private final shooterSubsystem shooterSubsystem = new shooterSubsystem();
-  // private final intakeSubsystem intakeSubsystem = new intakeSubsystem(
-  //   ScoringConstants.kDirectionalIntakeMotorPort, 
-  //   ScoringConstants.kIntakeMotorPort,
-  //   false, 
-  //   false);
+  private final intakeSubsystem intakeSubsystem = new intakeSubsystem(
+    ScoringConstants.kDirectionalIntakeMotorPort, 
+    ScoringConstants.kIntakeMotorPort,
+    false, 
+    false);
   private final armSubsystem armSubsystem = new armSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -110,19 +110,17 @@ public class RobotContainer {
     Trigger ybutton = m_scorerController.y();
     Trigger xbutton = m_scorerController.x();
     Trigger bbutton = m_scorerController.b();
-    Trigger dUP = m_scorerController.povUp();
-    Trigger dDOWN = m_scorerController.povDown();
       final shootCommand shoot = new shootCommand(shooterSubsystem);
       aButton.whileTrue(shoot);
 
-      // final intakeCommand intake = new intakeCommand(intakeSubsystem);
-      // ybutton.whileTrue(intake);
+      final intakeCommand intake = new intakeCommand(intakeSubsystem);
+      ybutton.whileTrue(intake);
 
       final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armSpeed);
-      dUP.whileTrue(armUp);
+      xbutton.whileTrue(armUp);
 
       final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armSpeed);
-      dDOWN.whileTrue(armDown);
+      bbutton.whileTrue(armDown);
   }
 
   /**

@@ -19,7 +19,7 @@ public class shooterSubsystem extends SubsystemBase{
         shootGoalMotor2 = new CANSparkMax(ScoringConstants.kShootSetMotor, MotorType.kBrushless);
     }
     public void shoot(){ 
-        shootSetMotor1.set(0.3);
+        shootSetMotor1.set(0.5);
         shootGoalMotor1.set(0.5);
         shootGoalMotor2.set(0.5);
     }
