@@ -157,7 +157,7 @@ public final class Constants {
     public static final boolean directionalIntakeMotorReversed = false;
     public static final boolean intakeMotorReversed = false;
 
-    public static final double intakeSpeed = 0.25;
+    public static final double intakeSpeed = 0.5;
     
 //test
     public static final int kShootSetMotor = 19;//Indexer?
