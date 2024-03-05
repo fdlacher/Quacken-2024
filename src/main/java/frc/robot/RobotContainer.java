@@ -73,6 +73,13 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband),
                 true, true),
             m_robotDrive));
+
+ armSubsystem.setDefaultCommand(
+        new RunCommand(
+          () -> armSubsystem.moveArm( 
+            -MathUtil.applyDeadband(m_scorerController.getLeftTriggerAxis(), OIConstants.kDeadband)), 
+          armSubsystem));
+           
   }
 
   /**
@@ -98,10 +105,7 @@ public class RobotContainer {
     Trigger dRIGHT = m_scorerController.povRight();
     Trigger dLEFT = m_scorerController.povDown();
 
-    final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(
-      armSubsystem, 
-      ScoringConstants.speakerAngle
-      );
+    final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(armSubsystem, ScoringConstants.speakerAngle);
     final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
     bbutton.whileTrue(stowArm);
     final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
