@@ -79,6 +79,12 @@ public class RobotContainer {
           () -> armSubsystem.moveArm( 
             -MathUtil.applyDeadband(m_scorerController.getLeftTriggerAxis(), OIConstants.kDeadband)), 
           armSubsystem));
+
+  shooterSubsystem.setDefaultCommand(
+      new RunCommand(
+      () -> shooterSubsystem.shoot(
+        -MathUtil.applyDeadband(m_scorerController.getRightTriggerAxis(), OIConstants.kDeadband))
+      ,shooterSubsystem));
            
   }
 

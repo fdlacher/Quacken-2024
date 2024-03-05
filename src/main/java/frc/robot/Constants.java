@@ -174,7 +174,8 @@ public final class Constants {
     public static final double armMinSpeed = 0.10;
     public static final double armMaxSpeed = 0.25;
 
-    public static final double shootSpeed = 0.5;
-    public static final double indexSpeed = 0.3;
+    public static final double shootSpeed = 0.4;
+    public static final double indexSpeed = 0.5;
+    
 }
 }

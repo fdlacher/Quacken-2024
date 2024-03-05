@@ -20,13 +20,17 @@ public class shooterSubsystem extends SubsystemBase{
         indexer = new CANSparkMax(ScoringConstants.kShootSetMotor, MotorType.kBrushless);
     }
     public void shoot(){ 
-        shootMotorBack.set(0.4);
-        shootMotorFront.set(0.4);
-        indexer.set(0.5);
+        shootMotorBack.set(ScoringConstants.shootSpeed);
+        shootMotorFront.set(ScoringConstants.shootSpeed);
+        indexer.set(ScoringConstants.indexSpeed);
     }
     public void shoot(double speed){ 
         shootMotorBack.set(speed);
         shootMotorFront.set(speed);
+    }
+
+    public void startIndexer(){ 
+        indexer.set(ScoringConstants.indexSpeed);
     }
     public void endShoot(){ 
         shootMotorBack.set(0.0);

@@ -13,6 +13,7 @@ public class armSubsystem extends SubsystemBase{
     private final CANSparkMax rightArmMotor;
 
     private final SparkAbsoluteEncoder armEncoder;
+    
     //we need an absolute encoder
     public armSubsystem(){ 
         leftArmMotor = new CANSparkMax(ScoringConstants.kleftArmMotor, MotorType.kBrushless);
