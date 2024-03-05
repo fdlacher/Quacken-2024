@@ -108,7 +108,7 @@ public class RobotContainer {
     ybutton.whileTrue(ampArm);
 
     final shootCommand shoot = new shootCommand(shooterSubsystem);
-      aButton.whileTrue(speakerAngle);
+      aButton.whileTrue(shoot);
 
       final intakeCommand intake = new intakeCommand(intakeSubsystem);
       ybutton.whileTrue(intake);
