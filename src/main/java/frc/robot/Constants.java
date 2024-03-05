@@ -159,6 +159,9 @@ public final class Constants {
 
     public static final double intakeSpeed = 0.5;
     
+    public static final int speakerAngle = 33;
+    public static final int stowAngle = 3;
+    public static final int ampAngle = 10;
 //test
     public static final int kShootSetMotor = 19;//Indexer?
     public static final int kRightShootGoalMotor1 = 18;
@@ -168,6 +171,7 @@ public final class Constants {
     public static final int kleftArmMotor = 11;//Pivot?
     public static final int kRightArmMotor = 14;//Pivot?
 
-    public static final double armSpeed = 0.25;
+    public static final double armMinSpeed = 0.10;
+    public static final double armMaxSpeed = 0.25;
 }
 }

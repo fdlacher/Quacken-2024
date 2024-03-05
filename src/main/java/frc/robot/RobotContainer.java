@@ -21,6 +21,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ScoringConstants;
 import frc.robot.commands.armCommand;
 import frc.robot.commands.intakeCommand;
+import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.armSubsystem;
@@ -88,23 +89,34 @@ public class RobotContainer {
             () -> m_robotDrive.setX(),
             m_robotDrive);//unknown if this will register...
 
-    Trigger aButton = m_driverController.a();
-    Trigger ybutton = m_driverController.y();
-    Trigger xbutton = m_driverController.x();
-    Trigger bbutton = m_driverController.b();
-    Trigger dUP = m_driverController.povUp();
-    Trigger dDOWN = m_driverController.povDown();
+    Trigger aButton = m_scorerController.a();//Bumber to speaker
+    Trigger ybutton = m_driverController.y();//Bumper to amp
+    Trigger xbutton = m_driverController.x();//Intake
+    Trigger bbutton = m_driverController.b();//Arm Down
+    Trigger dUP = m_scorerController.povUp();
+    Trigger dDOWN = m_scorerController.povDown();
+    Trigger dRIGHT = m_scorerController.povRight();
+    Trigger dLEFT = m_scorerController.povDown();
+
+    final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(
+      armSubsystem, 
+      ScoringConstants.speakerAngle
+      );
+    final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
+    bbutton.whileTrue(stowArm);
+    final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
+    ybutton.whileTrue(ampArm);
 
     final shootCommand shoot = new shootCommand(shooterSubsystem);
-      aButton.whileTrue(shoot);
+      aButton.whileTrue(speakerAngle);
 
       final intakeCommand intake = new intakeCommand(intakeSubsystem);
       ybutton.whileTrue(intake);
 
-      final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armSpeed);
+      final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
       dUP.whileTrue(armUp);
 
-      final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armSpeed);
+      final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armMaxSpeed);
       dDOWN.whileTrue(armDown);
   }
 
