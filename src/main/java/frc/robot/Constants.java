@@ -122,6 +122,8 @@ public final class Constants {
         PowerDistribution examplePD = new PowerDistribution(1, ModuleType.kRev);
         public static final int kDriverControllerPort = 0;
         public static final int kScorerControllerPort = 1;
+        
+        public static final boolean fieldRelative = true;
 
         // pretty sure this is better dependant on the controller
         public static final int kDriverYAxis = 1;
@@ -129,7 +131,7 @@ public final class Constants {
         public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 1;
 
-        public static final double kDeadband = 0.05;
+        public static final double kDeadband = 0.2;
   }
 
   public static final class AutoConstants {

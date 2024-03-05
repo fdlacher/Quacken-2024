@@ -10,10 +10,13 @@ public class IntakeSubsystem extends SubsystemBase{
     private final CANSparkMax directionalIntakeMotor;
     private final CANSparkMax intakeMotor;
 
+    private final CANSparkMax indexer;
+
 
     public IntakeSubsystem(){
         directionalIntakeMotor = new CANSparkMax(ScoringConstants.kDirectionalIntakeMotorPort, MotorType.kBrushless);
         intakeMotor = new CANSparkMax(ScoringConstants.kIntakeMotorPort, MotorType.kBrushless);
+        indexer = new CANSparkMax(ScoringConstants.kShootSetMotor,MotorType.kBrushless);
 
        
 
@@ -34,11 +37,13 @@ public class IntakeSubsystem extends SubsystemBase{
     public void enableIntake(double speed){
         directionalIntakeMotor.set(-speed);// value, should probally change
         intakeMotor.set(-speed); // temp value
+        indexer.set(0.5);
     }
 
     public void disableIntake(){
         directionalIntakeMotor.stopMotor();
         intakeMotor.stopMotor();
+        indexer.stopMotor();
     }
 
     public double getDirectionalIntakeMotor(){
