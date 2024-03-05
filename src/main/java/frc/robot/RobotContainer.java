@@ -111,7 +111,7 @@ public class RobotContainer {
       aButton.whileTrue(shoot);
 
       final intakeCommand intake = new intakeCommand(intakeSubsystem);
-      ybutton.whileTrue(intake);
+      xbutton.whileTrue(intake);
 
       final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
       dUP.whileTrue(armUp);
