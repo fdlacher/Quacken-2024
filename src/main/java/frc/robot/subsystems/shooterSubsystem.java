@@ -9,6 +9,8 @@ import frc.robot.Constants.ScoringConstants;
 public class shooterSubsystem extends SubsystemBase{
     private final CANSparkMax shootMotorBack;
     private final CANSparkMax shootMotorFront;
+    private double ampShotSpeedsBack = ScoringConstants.ampShotSpeedsBack;
+    private double ampShotSpeedsFront = ScoringConstants.ampShotSpeedsFront;
 
 
     public shooterSubsystem(){ 
@@ -30,7 +32,8 @@ public class shooterSubsystem extends SubsystemBase{
         shootMotorFront.stopMotor();
     }
     public void shootAmp(){
-        shootMotorBack.set(0.145);
-        shootMotorFront.set(0.08);
+        shootMotorBack.set(ampShotSpeedsBack);//325 //0.235
+        shootMotorFront.set(ampShotSpeedsFront);//265 //0.16
     }
+    
 }

@@ -92,6 +92,9 @@ public class RobotContainer {
     intakeSubsystem.setDefaultCommand(
       new RunCommand(()-> intakeSubsystem.rightStickIntake(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), intakeSubsystem)
     );
+    armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.moveArm(ScoringConstants.armMaxSpeed, 
+                                  -MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)),
+                                   armSubsystem));
            
   }
 

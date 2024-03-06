@@ -180,7 +180,9 @@ public final class Constants {
     public static final double armMinSpeed = 0.10;
     public static final double armMaxSpeed = 0.25;
 
-    public static final double shootSpeed = 0.4;
+    public static final double shootSpeed = .4;
+    public static final double ampShotSpeedsBack = 0.235;//325 //0.235
+    public static final double ampShotSpeedsFront = 0.16;//265 //0.16;
     public static final double indexSpeed = 0.5;
     
 }
