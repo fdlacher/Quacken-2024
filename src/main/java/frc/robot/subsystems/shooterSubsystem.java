@@ -30,7 +30,7 @@ public class shooterSubsystem extends SubsystemBase{
         shootMotorFront.stopMotor();
     }
     public void shootAmp(){
-        shootMotorBack.set(0.13);
-        shootMotorFront.set(0.085);
+        shootMotorBack.set(0.145);
+        shootMotorFront.set(0.08);
     }
 }

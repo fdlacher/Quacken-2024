@@ -76,7 +76,7 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband),
                 OIConstants.fieldRelative, true),
             m_robotDrive));
-
+    /*
  armSubsystem.setDefaultCommand(
         new RunCommand(
           () -> armSubsystem.moveArm( 
@@ -88,6 +88,10 @@ public class RobotContainer {
       () -> shooterSubsystem.shoot(
         -MathUtil.applyDeadband(m_scorerController.getRightTriggerAxis(), OIConstants.kDeadband))
       ,shooterSubsystem));
+      */
+    intakeSubsystem.setDefaultCommand(
+      new RunCommand(()-> intakeSubsystem.rightStickIntake(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), intakeSubsystem)
+    );
            
   }
 
@@ -133,6 +137,7 @@ public class RobotContainer {
     //intake/indexers
     final inverseIndex reverse = new inverseIndex(intakeSubsystem);
     xScorerbutton.whileTrue(reverse);
+    //new RunCommand(()->intakeSubsystem.rightStickIntake(m_scorerController.getRightY()), intakeSubsystem);
 
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
     aScorerButton.whileTrue(intake);
