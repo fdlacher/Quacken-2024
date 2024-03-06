@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ScoringConstants;
 
 public class IntakeSubsystem extends SubsystemBase{
@@ -53,8 +54,19 @@ public class IntakeSubsystem extends SubsystemBase{
     public double getIntakeMotor(){
         return intakeMotor.get();
     }
-    
+
     public void reverseIntake (){
         indexer.set(-ScoringConstants.indexerSpeed);
+    }
+    public void rightStickIntake(double rightStickPos){
+        //should take in stick position and then choose wether to do either inatke or reversed index
+        if(rightStickPos > 0.0){
+            intakeMotor.set(ScoringConstants.intakeSpeed);
+            directionalIntakeMotor.set(ScoringConstants.intakeSpeed);
+            indexer.set(ScoringConstants.indexerSpeed);
+        }
+        else if(rightStickPos < 0.0){
+            indexer.set(-ScoringConstants.indexerSpeed);
+        }
     }
 }

@@ -167,6 +167,7 @@ public final class Constants {
     public static final int speakerAngle = 33;
     public static final int stowAngle = 3;
     public static final int ampAngle = 10;
+    public static final int intakeAngle = 0;
 
     public static final int kShootSetMotor = 19;//Indexer?
     public static final int kRightShootGoalMotor1 = 18;
