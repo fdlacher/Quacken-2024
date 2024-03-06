@@ -18,16 +18,13 @@ public class shooterSubsystem extends SubsystemBase{
     public void shoot(){ 
         shootMotorBack.set(ScoringConstants.shootSpeed);
         shootMotorFront.set(ScoringConstants.shootSpeed);
-        indexer.set(ScoringConstants.indexSpeed);
     }
     public void shoot(double speed){ 
         shootMotorBack.set(speed);
         shootMotorFront.set(speed);
     }
 
-    public void startIndexer(){ 
-        indexer.set(ScoringConstants.indexSpeed);
-    }
+
     public void endShoot(){ 
         shootMotorBack.stopMotor();
         shootMotorFront.stopMotor();
