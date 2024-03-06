@@ -14,11 +14,11 @@ public class intakeDirectionCommand extends Command{
 
     @Override
     public void initialize() {
-        intakeSubsystem.reverseDirectionalIntake();
     }
 
     @Override
     public void execute() {
+        intakeSubsystem.reverseDirectionalIntake();
     }
 
     @Override

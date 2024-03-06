@@ -76,12 +76,13 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband),
                 OIConstants.fieldRelative, true),
             m_robotDrive));
-            
+      /*   
       intakeSubsystem.setDefaultCommand( // a little bit worried that this will break intake
 
         new RunCommand( () -> intakeSubsystem.rightStickIntake(
           -MathUtil.applyDeadband(m_scorerController.getRightX(),OIConstants.kDeadband)
         )));
+        */
         
   }
 
@@ -118,32 +119,45 @@ public class RobotContainer {
     Trigger leftTrigger = m_scorerController.leftTrigger(ScoringConstants.triggerDeadBand); //amp shot
     Trigger rightTrigger = m_scorerController.rightTrigger(ScoringConstants.triggerDeadBand); //shoot
 
-    Trigger dScorerUP = m_scorerController.povUp();  // intake angle
-    Trigger dScorerDOWN = m_scorerController.povDown(); //speaker angle
+    Trigger dScorerUP = m_scorerController.povUp();  // intake angle -//temp arm up
+    Trigger dScorerDOWN = m_scorerController.povDown(); //speaker angle -//temp arm down
     Trigger dScorerRIGHT = m_scorerController.povRight(); //stow arm
     Trigger dScorerLEFT = m_scorerController.povDown(); // amp angle
 
 
     //intake/indexers
     final inverseIndex reverse = new inverseIndex(intakeSubsystem);
+
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
+
     final intakeDirectionCommand changeDirection = new intakeDirectionCommand(intakeSubsystem);
-    scorerRightStick.whileTrue(changeDirection);
+    scorerRightStick.onTrue(changeDirection);
+
 
     //shoot
     final shootCommand shoot = new shootCommand(shooterSubsystem);
     rightTrigger.whileTrue(shoot);
+    
     final ampShotCommand ampShot = new ampShotCommand(shooterSubsystem);
     leftTrigger.whileTrue(ampShot);
 
+
     //arm pos- manual
     final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
+    dScorerUP.whileTrue(armUp);
+
     final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armMaxSpeed);
+    dScorerDOWN.whileTrue(armDown);
+
 
     //arm pos- preset
     final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(armSubsystem,ScoringConstants.speakerAngle);
+    
     final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
+
     final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
+    dScorerLEFT.whileTrue(ampArm);
+
     final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
       
   }
