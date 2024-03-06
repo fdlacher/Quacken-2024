@@ -122,6 +122,8 @@ public final class Constants {
         PowerDistribution examplePD = new PowerDistribution(1, ModuleType.kRev);
         public static final int kDriverControllerPort = 0;
         public static final int kScorerControllerPort = 1;
+        
+        public static final boolean fieldRelative = false;
 
         // pretty sure this is better dependant on the controller
         public static final int kDriverYAxis = 1;
@@ -129,7 +131,7 @@ public final class Constants {
         public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 1;
 
-        public static final double kDeadband = 0.05;
+        public static final double kDeadband = 0.2;
   }
 
   public static final class AutoConstants {
@@ -158,11 +160,15 @@ public final class Constants {
     public static final boolean intakeMotorReversed = false;
 
     public static final double intakeSpeed = 0.5;
+    public static final double indexerSpeed = 0.5;
+
+    public static final double triggerDeadBand = 0.3;
     
     public static final int speakerAngle = 33;
     public static final int stowAngle = 3;
     public static final int ampAngle = 10;
-//test
+    public static final int intakeAngle = 0;
+
     public static final int kShootSetMotor = 19;//Indexer?
     public static final int kRightShootGoalMotor1 = 18;
     public static final int kLeftShootGoalMotor = 17;

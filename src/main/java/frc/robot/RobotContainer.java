@@ -19,8 +19,11 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ScoringConstants;
+import frc.robot.commands.ampShotCommand;
 import frc.robot.commands.armCommand;
 import frc.robot.commands.intakeCommand;
+import frc.robot.commands.intakeDirectionCommand;
+import frc.robot.commands.inverseIndex;
 import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.DriveSubsystem;
@@ -71,7 +74,7 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband),
-                true, true),
+                OIConstants.fieldRelative, true),
             m_robotDrive));
 
  armSubsystem.setDefaultCommand(
@@ -102,32 +105,66 @@ public class RobotContainer {
             () -> m_robotDrive.setX(),
             m_robotDrive);//unknown if this will register...
 
-    Trigger aButton = m_scorerController.a();//Bumber to speaker
-    Trigger ybutton = m_driverController.y();//Bumper to amp
-    Trigger xbutton = m_driverController.x();//Intake
-    Trigger bbutton = m_driverController.b();//Arm Down
-    Trigger dUP = m_scorerController.povUp();
-    Trigger dDOWN = m_scorerController.povDown();
-    Trigger dRIGHT = m_scorerController.povRight();
-    Trigger dLEFT = m_scorerController.povDown();
+    //Trigger aDriverButton = m_scorerController.a();//Bumber to speaker
+    //Trigger yDriverbutton = m_driverController.y();//Bumper to amp
+    //Trigger xDriverbutton = m_driverController.x();//Intake
+    //Trigger bDriverbutton = m_driverController.b();//Arm Down
+    //Trigger dDriverUP = m_driverController.povUp(); //pivot arm
+    //Trigger dDriverDriverDOWN = m_driverController.povDown(); //pivot arm
+    //Trigger dDriverRIGHT = m_driverController.povRight();
+    //Trigger dDriverLEFT = m_driverController.povDown();
 
-    final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(armSubsystem, ScoringConstants.speakerAngle);
-    final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
-    bbutton.whileTrue(stowArm);
-    final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
-    ybutton.whileTrue(ampArm);
+    Trigger scorerRightStick = m_scorerController.rightStick();//flip intake - press it
 
+    Trigger aScorerButton = m_scorerController.a();
+    Trigger yScorerbutton = m_scorerController.y();
+    Trigger bScorerbutton = m_scorerController.b();
+    Trigger xScorerbutton = m_scorerController.x();
+    
+    Trigger leftTrigger = m_scorerController.leftTrigger(ScoringConstants.triggerDeadBand); //amp shot
+    Trigger rightTrigger = m_scorerController.rightTrigger(ScoringConstants.triggerDeadBand); //shoot
+
+    Trigger dScorerUP = m_scorerController.povUp();  // intake angle -//temp arm up
+    Trigger dScorerDOWN = m_scorerController.povDown(); //speaker angle -//temp arm down
+    Trigger dScorerRIGHT = m_scorerController.povRight(); //stow arm
+    Trigger dScorerLEFT = m_scorerController.povDown(); // amp angle
+
+
+    //intake/indexers
+    final inverseIndex reverse = new inverseIndex(intakeSubsystem);
+
+    final intakeCommand intake = new intakeCommand(intakeSubsystem);
+
+    final intakeDirectionCommand changeDirection = new intakeDirectionCommand(intakeSubsystem);
+    scorerRightStick.onTrue(changeDirection);
+
+
+    //shoot
     final shootCommand shoot = new shootCommand(shooterSubsystem);
-      aButton.whileTrue(shoot);
+    rightTrigger.whileTrue(shoot);
+    
+    final ampShotCommand ampShot = new ampShotCommand(shooterSubsystem);
+    leftTrigger.whileTrue(ampShot);
 
-      final intakeCommand intake = new intakeCommand(intakeSubsystem);
-      xbutton.whileTrue(intake);
 
-      final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
-      dUP.whileTrue(armUp);
+    //arm pos- manual
+    final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
+    dScorerUP.whileTrue(armUp);
 
-      final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armMaxSpeed);
-      dDOWN.whileTrue(armDown);
+    final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armMaxSpeed);
+    dScorerDOWN.whileTrue(armDown);
+
+
+    //arm pos- preset
+    final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(armSubsystem,ScoringConstants.speakerAngle);
+    
+    final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
+
+    final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
+    dScorerLEFT.whileTrue(ampArm);
+
+    final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
+      
   }
 
   /**

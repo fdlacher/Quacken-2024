@@ -28,15 +28,13 @@ public class pivotArmSpecfic extends Command {
     public pivotArmSpecfic(
         armSubsystem armSubsystem, 
         Supplier<Double> endAngle, 
-        boolean continueArm){
+        boolean continueArm)
+    {
     this.armSubsystem = armSubsystem;
     this.continueArm = continueArm;
     addRequirements(armSubsystem);
     }
 
-
- 
-  
 
     @Override
     public void initialize(){

@@ -4,8 +4,6 @@ import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ScoringConstants;
 public class armSubsystem extends SubsystemBase{
@@ -29,13 +27,12 @@ public class armSubsystem extends SubsystemBase{
 
 
     public void stopArm(){ 
-        leftArmMotor.set(0.0);
-        rightArmMotor.set(0.0);
+        leftArmMotor.stopMotor();
+        rightArmMotor.stopMotor();
     }
 
     public double getAngle(){ 
         return armEncoder.getPosition();
     }
-
 
 }
