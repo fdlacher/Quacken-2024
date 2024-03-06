@@ -21,6 +21,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ScoringConstants;
 import frc.robot.commands.armCommand;
 import frc.robot.commands.intakeCommand;
+import frc.robot.commands.intakeDirectionCommand;
 import frc.robot.commands.inverseIndex;
 import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.shootCommand;
@@ -101,9 +102,10 @@ public class RobotContainer {
 
     Trigger aScorerButton = m_scorerController.a();//Bumber to speaker - ange
     Trigger yScorerbutton = m_scorerController.y();//Bumper to amp - angle
-
-    //Trigger xScorerbutton = m_scorerController.x();//Intake
     Trigger bScorerbutton = m_scorerController.b();//Arm Down
+
+    Trigger xScorerbutton = m_scorerController.x();//IntakeDirection -/will want it to be intake position
+    
     
     Trigger leftTrigger = m_scorerController.leftTrigger(ScoringConstants.triggerDeadBand); //reverse indexer
     Trigger rightTrigger = m_scorerController.rightTrigger(ScoringConstants.triggerDeadBand); //intake
@@ -117,6 +119,7 @@ public class RobotContainer {
       armSubsystem, 
       ScoringConstants.speakerAngle
       );
+
     final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
     bScorerbutton.whileTrue(stowArm);
     final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
@@ -127,6 +130,8 @@ public class RobotContainer {
     leftTrigger.whileTrue(reverse);
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
     rightTrigger.whileTrue(intake);
+    final intakeDirectionCommand changeDirection = new intakeDirectionCommand(intakeSubsystem);
+    xScorerbutton.whileTrue(changeDirection);
 
     final shootCommand shoot = new shootCommand(shooterSubsystem);
       aScorerButton.whileTrue(shoot);

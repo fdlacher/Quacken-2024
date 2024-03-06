@@ -19,7 +19,8 @@ public class armCommand extends Command {
     @Override
     public void execute(){
         //if arm angle is greater that "180" but less than "45" then :
-        armSubsystem.moveArm(speed);
+        if(armSubsystem.getAngle()>10);
+            armSubsystem.moveArm(speed);
         //else set speed 0
     }
     

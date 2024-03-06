@@ -53,6 +53,7 @@ public class IntakeSubsystem extends SubsystemBase{
     public double getIntakeMotor(){
         return intakeMotor.get();
     }
+    
     public void reverseIntake (){
         indexer.set(-ScoringConstants.indexerSpeed);
     }

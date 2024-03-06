@@ -28,13 +28,12 @@ public class armSubsystem extends SubsystemBase{
 
 
     public void stopArm(){ 
-        leftArmMotor.set(0.0);
-        rightArmMotor.set(0.0);
+        leftArmMotor.stopMotor();
+        rightArmMotor.stopMotor();
     }
 
     public double getAngle(){ 
         return armEncoder.getPosition();
     }
-
 
 }

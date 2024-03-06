@@ -24,4 +24,8 @@ public class shooterSubsystem extends SubsystemBase{
         shootMotorBack.stopMotor();
         shootMotorFront.stopMotor();
     }
+    public void shootAmp(){
+        shootMotorBack.set(0.3);
+        shootMotorFront.set(0.25);
+    }
 }
