@@ -132,8 +132,10 @@ public class RobotContainer {
 
     //intake/indexers
     final inverseIndex reverse = new inverseIndex(intakeSubsystem);
+    xScorerbutton.whileTrue(reverse);
 
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
+    aScorerButton.whileTrue(intake);
 
     final intakeDirectionCommand changeDirection = new intakeDirectionCommand(intakeSubsystem);
     scorerRightStick.onTrue(changeDirection);
@@ -161,7 +163,7 @@ public class RobotContainer {
     final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
 
     final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
-    dScorerLEFT.whileTrue(ampArm);
+    //dScorerLEFT.whileTrue(ampArm);
 
     final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
       
