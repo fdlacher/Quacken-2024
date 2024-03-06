@@ -21,6 +21,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ScoringConstants;
 import frc.robot.commands.armCommand;
 import frc.robot.commands.intakeCommand;
+import frc.robot.commands.inverseIndex;
 import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.DriveSubsystem;
@@ -93,15 +94,20 @@ public class RobotContainer {
     //Trigger yDriverbutton = m_driverController.y();//Bumper to amp
     //Trigger xDriverbutton = m_driverController.x();//Intake
     //Trigger bDriverbutton = m_driverController.b();//Arm Down
-    //Trigger dDriverUP = m_scorerController.povUp(); //pivot arm
-    //Trigger dDriverDriverDOWN = m_scorerController.povDown(); //pivot arm
-    //Trigger dDriverRIGHT = m_scorerController.povRight();
-    //Trigger dDriverLEFT = m_scorerController.povDown();
+    //Trigger dDriverUP = m_driverController.povUp(); //pivot arm
+    //Trigger dDriverDriverDOWN = m_driverController.povDown(); //pivot arm
+    //Trigger dDriverRIGHT = m_driverController.povRight();
+    //Trigger dDriverLEFT = m_driverController.povDown();
 
-    Trigger aScorerButton = m_scorerController.a();//Bumber to speaker
-    Trigger yScorerbutton = m_scorerController.y();//Bumper to amp
-    Trigger xScorerbutton = m_scorerController.x();//Intake
+    Trigger aScorerButton = m_scorerController.a();//Bumber to speaker - ange
+    Trigger yScorerbutton = m_scorerController.y();//Bumper to amp - angle
+
+    //Trigger xScorerbutton = m_scorerController.x();//Intake
     Trigger bScorerbutton = m_scorerController.b();//Arm Down
+    
+    Trigger leftTrigger = m_scorerController.leftTrigger(ScoringConstants.triggerDeadBand); //reverse indexer
+    Trigger rightTrigger = m_scorerController.rightTrigger(ScoringConstants.triggerDeadBand); //intake
+
     Trigger dScorerUP = m_scorerController.povUp(); //pivot arm
     Trigger dScorerDOWN = m_scorerController.povDown(); //pivot arm
     //Trigger dScorerRIGHT = m_scorerController.povRight();
@@ -116,11 +122,14 @@ public class RobotContainer {
     final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
     yScorerbutton.whileTrue(ampArm);
 
+    //intake/indexers
+    final inverseIndex reverse = new inverseIndex(intakeSubsystem);
+    leftTrigger.whileTrue(reverse);
+    final intakeCommand intake = new intakeCommand(intakeSubsystem);
+    rightTrigger.whileTrue(intake);
+
     final shootCommand shoot = new shootCommand(shooterSubsystem);
       aScorerButton.whileTrue(shoot);
-
-      final intakeCommand intake = new intakeCommand(intakeSubsystem);
-      xScorerbutton.whileTrue(intake);
 
       final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
       dScorerUP.whileTrue(armUp);

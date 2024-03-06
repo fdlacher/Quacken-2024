@@ -37,7 +37,7 @@ public class IntakeSubsystem extends SubsystemBase{
     public void enableIntake(double speed){
         directionalIntakeMotor.set(-speed);// value, should probally change
         intakeMotor.set(-speed); // temp value
-        indexer.set(0.5);
+        indexer.set(ScoringConstants.indexerSpeed);
     }
 
     public void disableIntake(){
@@ -52,5 +52,8 @@ public class IntakeSubsystem extends SubsystemBase{
 
     public double getIntakeMotor(){
         return intakeMotor.get();
+    }
+    public void reverseIntake (){
+        indexer.set(-ScoringConstants.indexerSpeed);
     }
 }

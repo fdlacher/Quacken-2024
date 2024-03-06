@@ -21,7 +21,7 @@ public class shooterSubsystem extends SubsystemBase{
         shootMotorFront.set(0.4);
     }
     public void endShoot(){ 
-        shootMotorBack.set(0.0);
-        shootMotorFront.set(0.0);
+        shootMotorBack.stopMotor();
+        shootMotorFront.stopMotor();
     }
 }
