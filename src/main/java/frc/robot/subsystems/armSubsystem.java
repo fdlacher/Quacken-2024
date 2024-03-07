@@ -24,6 +24,20 @@ public class armSubsystem extends SubsystemBase{
         leftArmMotor.set(speed);
         rightArmMotor.set(-speed);
     }
+    public void moveArm(double speed, double leftStickPos){
+        if(leftStickPos > 0.0){
+            leftArmMotor.set(speed);
+            rightArmMotor.set(-speed);
+        }
+        else if(leftStickPos < 0.0){
+            leftArmMotor.set(-speed);
+            rightArmMotor.set(speed);
+        }
+        else{
+            leftArmMotor.stopMotor();
+            rightArmMotor.stopMotor();
+        }
+    }
 
 
     public void stopArm(){ 

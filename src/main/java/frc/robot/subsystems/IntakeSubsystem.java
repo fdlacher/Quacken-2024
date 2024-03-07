@@ -67,5 +67,10 @@ public class IntakeSubsystem extends SubsystemBase{
         else if(rightStickPos < 0.0){
             indexer.set(-ScoringConstants.indexerSpeed);
         }
+        else{
+            intakeMotor.stopMotor();
+            directionalIntakeMotor.stopMotor();
+            indexer.stopMotor();
+        }
     }
 }
