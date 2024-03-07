@@ -159,8 +159,8 @@ public final class Constants {
     public static final boolean directionalIntakeMotorReversed = false;
     public static final boolean intakeMotorReversed = false;
 
-    public static final double intakeSpeed = 0.5;
-    public static final double indexerSpeed = 0.5;
+    public static final double intakeSpeed = 0.75;
+    public static final double indexerSpeed = 0.60;
 
     public static final double triggerDeadBand = 0.3;
     
@@ -178,7 +178,7 @@ public final class Constants {
     public static final int kRightArmMotor = 14;//Pivot?
 
     public static final double armMinSpeed = 0.10;
-    public static final double armMaxSpeed = 0.25;
+    public static final double armMaxSpeed = 0.15;
 
     public static final double shootSpeed = 1;
     public static final double ampShotSpeedsBack = 0.235;//325 //0.235

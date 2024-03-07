@@ -239,8 +239,13 @@ public class RobotContainer {
     //return Commands.run(shoot, shooterSubsystem);
     //return Commands.runOnce(()-> shoot, shooterSubsystem);
     //return Commands.sequence(shoot).andThen(intake).andThen(()-> m_robotDrive.drive(0.2,0.0,0.0,OIConstants.fieldRelative,true)).until(()->new WaitCommand(3).isFinished()).andThen(()-> m_robotDrive.drive(0,0,0,OIConstants.fieldRelative,true)).andThen(stopShoot); //problem, drive doesnt stop
-    return Commands.runOnce(() -> shooterSubsystem.shoot(),shooterSubsystem).andThen(new WaitCommand(2)).andThen(()->intakeSubsystem.enableIntake(0.5),intakeSubsystem).andThen(new WaitCommand(5)).andThen(()-> m_robotDrive.drive(0.0,0.5,0.0,OIConstants.fieldRelative,true),m_robotDrive)
-    .andThen(new WaitCommand(1)).andThen(()-> shooterSubsystem.endShoot(),shooterSubsystem);
+    return Commands.runOnce(
+      () -> shooterSubsystem.shoot(),
+      shooterSubsystem).andThen(new WaitCommand(2))
+      .andThen(()->intakeSubsystem.enableIntake(0.5),
+      intakeSubsystem).andThen(new WaitCommand(5))
+      .andThen(()-> m_robotDrive.drive(0.0,0.5,0.0,OIConstants.fieldRelative,true),m_robotDrive)
+      .andThen(new WaitCommand(1)).andThen(()-> shooterSubsystem.endShoot(),shooterSubsystem);
   }
 
 }
