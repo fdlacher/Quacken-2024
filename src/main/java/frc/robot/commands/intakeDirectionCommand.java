@@ -19,7 +19,7 @@ public class intakeDirectionCommand extends Command{
     public void execute() {
         intakeSubsystem.reverseDirectionalIntake();
     }
-
+    
     @Override
     public void end(boolean end) {
     }

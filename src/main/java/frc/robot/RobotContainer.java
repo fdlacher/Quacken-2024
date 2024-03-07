@@ -27,6 +27,7 @@ import frc.robot.commands.inverseIndex;
 import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.resetGyroCommand;
 import frc.robot.commands.shootCommand;
+import frc.robot.commands.stopShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.armSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -177,7 +178,6 @@ public class RobotContainer {
     final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
 
     final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
-    //dScorerLEFT.whileTrue(ampArm);
 
     final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
       
@@ -188,6 +188,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
+   
   public Command getAutonomousCommand() {
     /*
     // Create config for trajectory
@@ -231,10 +233,14 @@ public class RobotContainer {
     //---return Commands.swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false)); //why swervecontroller command AND THEN
     //sequencev -//repearting sequence
     //parallel
-    //race
-    final shootCommand shoot = new shootCommand(shooterSubsystem);
-    final intakeCommand intake = new intakeCommand(intakeSubsystem);
+    //race-
 
-    return Commands.sequence(shoot).until(()->new WaitCommand(3).isFinished()).andThen(intake).andThen(()-> m_robotDrive.drive(0.2,0.0,0.0,OIConstants.fieldRelative,true)).until(()->new WaitCommand(3).isFinished()).andThen(()-> m_robotDrive.drive(0,0,0,OIConstants.fieldRelative,true));
+    //shoot has a premade stop command, dont know if that acounts fo rit
+    //return Commands.run(shoot, shooterSubsystem);
+    //return Commands.runOnce(()-> shoot, shooterSubsystem);
+    //return Commands.sequence(shoot).andThen(intake).andThen(()-> m_robotDrive.drive(0.2,0.0,0.0,OIConstants.fieldRelative,true)).until(()->new WaitCommand(3).isFinished()).andThen(()-> m_robotDrive.drive(0,0,0,OIConstants.fieldRelative,true)).andThen(stopShoot); //problem, drive doesnt stop
+    return Commands.runOnce(() -> shooterSubsystem.shoot(),shooterSubsystem).andThen(new WaitCommand(2)).andThen(()->intakeSubsystem.enableIntake(0.5),intakeSubsystem).andThen(new WaitCommand(5)).andThen(()-> m_robotDrive.drive(0.0,0.5,0.0,OIConstants.fieldRelative,true),m_robotDrive)
+    .andThen(new WaitCommand(1)).andThen(()-> shooterSubsystem.endShoot(),shooterSubsystem);
   }
+
 }
