@@ -25,14 +25,17 @@ import frc.robot.commands.intakeCommand;
 import frc.robot.commands.intakeDirectionCommand;
 import frc.robot.commands.inverseIndex;
 import frc.robot.commands.pivotArmSpecfic;
+import frc.robot.commands.resetGyroCommand;
 import frc.robot.commands.shootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.armSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.shooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -113,7 +116,7 @@ public class RobotContainer {
             m_robotDrive);//unknown if this will register...
 
     //Trigger aDriverButton = m_scorerController.a();//Bumber to speaker
-    //Trigger yDriverbutton = m_driverController.y();//Bumper to amp
+    Trigger yDriverbutton = m_driverController.y();//Reset gyro
     //Trigger xDriverbutton = m_driverController.x();//Intake
     //Trigger bDriverbutton = m_driverController.b();//Arm Down
     //Trigger dDriverUP = m_driverController.povUp(); //pivot arm
@@ -121,7 +124,8 @@ public class RobotContainer {
     //Trigger dDriverRIGHT = m_driverController.povRight();
     //Trigger dDriverLEFT = m_driverController.povDown();
 
-    Trigger scorerRightStick = m_scorerController.rightStick();//flip intake - press it
+
+    //Trigger scorerRightStick = m_scorerController.rightStick();//flip intake - press it
 
     Trigger aScorerButton = m_scorerController.a();
     Trigger yScorerbutton = m_scorerController.y();
@@ -136,7 +140,9 @@ public class RobotContainer {
     Trigger dScorerRIGHT = m_scorerController.povRight(); //stow arm
     Trigger dScorerLEFT = m_scorerController.povDown(); // amp angle
 
-
+    
+    final resetGyroCommand resetGyro = new resetGyroCommand(m_robotDrive);
+    yDriverbutton.onTrue(resetGyro);
     //intake/indexers
     final inverseIndex reverse = new inverseIndex(intakeSubsystem);
     xScorerbutton.whileTrue(reverse);
@@ -146,7 +152,7 @@ public class RobotContainer {
     aScorerButton.whileTrue(intake);
 
     final intakeDirectionCommand changeDirection = new intakeDirectionCommand(intakeSubsystem);
-    scorerRightStick.onTrue(changeDirection);
+    //scorerRightStick.onTrue(changeDirection);
 
 
     //shoot
@@ -183,6 +189,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    /*
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
         AutoConstants.kMaxSpeedMetersPerSecond,
@@ -190,6 +197,7 @@ public class RobotContainer {
         // Add kinematics to ensure max speed is actually obeyed
         .setKinematics(DriveConstants.kDriveKinematics);
 
+      
     // An example trajectory to follow. All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
@@ -218,8 +226,15 @@ public class RobotContainer {
 
     // Reset odometry to the starting pose of the trajectory.
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
-
+     */
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    //---return Commands.swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false)); //why swervecontroller command AND THEN
+    //sequencev -//repearting sequence
+    //parallel
+    //race
+    final shootCommand shoot = new shootCommand(shooterSubsystem);
+    final intakeCommand intake = new intakeCommand(intakeSubsystem);
+
+    return Commands.sequence(shoot).until(()->new WaitCommand(3).isFinished()).andThen(intake).andThen(()-> m_robotDrive.drive(0.2,0.0,0.0,OIConstants.fieldRelative,true)).until(()->new WaitCommand(3).isFinished()).andThen(()-> m_robotDrive.drive(0,0,0,OIConstants.fieldRelative,true));
   }
 }
