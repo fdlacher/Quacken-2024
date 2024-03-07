@@ -17,7 +17,9 @@ public class armCommand extends Command {
     @Override
     public void initialize(){}
     
-    public void periodic(){ 
+
+    @Override
+    public void execute(){
         if (armSubsystem.getAngle() > ScoringConstants.armMaxAngle) {
             armSubsystem.moveArm(-speed);
         }
@@ -25,9 +27,6 @@ public class armCommand extends Command {
         if(armSubsystem.getAngle() < ScoringConstants.armMinAngle) { 
             armSubsystem.moveArm(speed);
         }
-    }
-    @Override
-    public void execute(){
         //if arm angle is greater that "180" but less than "45" then :
             armSubsystem.moveArm(speed);
             //System.out.println("command error");
