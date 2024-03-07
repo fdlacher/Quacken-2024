@@ -180,8 +180,8 @@ public final class Constants {
     public static final double armMinSpeed = 0.10;
     public static final double armMaxSpeed = 0.25;
 
-    public static final int armMinAngle = 5;
-    public static final int armMaxAngle = 175;
+    public static final int armMinAngle = 5;//TODO: LOOK AT THE HARDWARE CLIENT FOR THIS VALUE. THIS IS JUST A PLACEHOLDER.
+    public static final int armMaxAngle = 175;//TODO: LOOK AT THE HARDWARE CLIENT FOR THIS VALUE. THIS IS JUST A PLACEHOLDER.
 
     public static final double shootSpeed = 0.4;
     public static final double ampShotSpeedsBack = 0.235;//325 //0.235
