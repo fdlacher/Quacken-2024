@@ -31,7 +31,9 @@ import frc.robot.subsystems.armSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.shooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -39,6 +41,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.util.List;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -166,6 +169,27 @@ public class RobotContainer {
     final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
       
   }
+public Command getTestAutoCommand(){ 
+  
+   /*  
+    return new SequentialCommandGroup(
+      new InstantCommand(() -> shooterSubsystem.shoot()
+    ));
+    break;
+    */
+    //default:
+    return new SequentialCommandGroup( 
+      new InstantCommand(() -> m_robotDrive.drive(0.5,0.0,0.0, false, true))
+    );
+
+    // case(0):
+    // return new SequentialCommandGroup(
+    //   new InstantCommand(() -> DriveSubsystem.drive())
+    // );
+    
+  
+}
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -174,6 +198,12 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Create config for trajectory
+
+      // AutoBuilder PathAuto = new AutoBuilder(
+      // AutoConstants.kMaxSpeedMetersPerSecond,
+      // AutoConstants.kMaxAccelerationMetersPerSecondSquared);
+
+   
     TrajectoryConfig config = new TrajectoryConfig(
         AutoConstants.kMaxSpeedMetersPerSecond,
         AutoConstants.kMaxAccelerationMetersPerSecondSquared)
