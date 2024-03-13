@@ -199,7 +199,7 @@ public class RobotContainer {
     //final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
       
   }
-public Command getTestAutoCommand(){ 
+//public Command getTestAutoCommand(){ 
   
    /*  
     return new SequentialCommandGroup(
@@ -208,9 +208,9 @@ public Command getTestAutoCommand(){
     break;
     */
     //default:
-    return new SequentialCommandGroup( 
-      new InstantCommand(() -> m_robotDrive.drive(0.5,0.0,0.0, false, true))
-    );
+    //return new SequentialCommandGroup( 
+    //  new InstantCommand(() -> m_robotDrive.drive(0.5,0.0,0.0, false, true))
+    //);
 
     // case(0):
     // return new SequentialCommandGroup(
@@ -218,7 +218,7 @@ public Command getTestAutoCommand(){
     // );
     
   
-}
+//}
 
 
   /**

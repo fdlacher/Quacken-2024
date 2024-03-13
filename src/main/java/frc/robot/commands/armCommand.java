@@ -20,11 +20,11 @@ public class armCommand extends Command {
 
     @Override
     public void execute(){
-        if (armSubsystem.getAngle() > ScoringConstants.armMaxAngle) {
+        if (armSubsystem.getAngle() > ScoringConstants.armMaxSpeed) {
             armSubsystem.moveArm(-speed);
         }
 
-        if(armSubsystem.getAngle() < ScoringConstants.armMinAngle) { 
+        if(armSubsystem.getAngle() < ScoringConstants.armMinSpeed) { 
             armSubsystem.moveArm(speed);
         }
         //if arm angle is greater that "180" but less than "45" then :
