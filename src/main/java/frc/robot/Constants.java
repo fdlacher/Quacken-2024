@@ -127,7 +127,7 @@ public final class Constants {
         public static final int kDriverControllerPort = 0;
         public static final int kScorerControllerPort = 1;
         
-        public static final boolean fieldRelative = false;
+        public static final boolean fieldRelative = true;
 
         // pretty sure this is better dependant on the controller
         public static final int kDriverYAxis = 1;
@@ -135,7 +135,7 @@ public final class Constants {
         public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 1;
 
-        public static final double kDeadband = 0.2;
+        public static final double kDeadband = 0.15;
   }
 
   public static final class AutoConstants {
@@ -185,8 +185,8 @@ public final class Constants {
     public static final double armMaxSpeed = 0.05;
 
     public static final double shootSpeed = 1;
-    public static final double ampShotSpeedsBack = 0.235;//325 //0.235
-    public static final double ampShotSpeedsFront = 0.18;//265 //0.16;
+    public static final double ampShotSpeedsBack = 0.335;//325 //0.235
+    public static final double ampShotSpeedsFront = 0.268;//265 //0.16;
     public static final double indexSpeed = 0.5;
     
 }

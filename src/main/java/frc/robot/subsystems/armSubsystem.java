@@ -15,10 +15,10 @@ public class armSubsystem extends SubsystemBase{
     private final CANSparkMax rightArmMotor;
 
     private final SparkAbsoluteEncoder armEncoder;
-    double setPoint =0.0;
+    double setPoint = .1;
     double currentAngle;
     //shuffleboard
-    private PIDController armPID = new PIDController(0.2,0.5,.5);//Tune these values!!
+    private PIDController armPID = new PIDController(11,0.075,.8);//Tune these values!!
 
     private GenericEntry d_pidOutput = Shuffleboard.getTab("Intake").add("PID output", 0).getEntry();
     private GenericEntry d_currentAngle = Shuffleboard.getTab("Intake").add("Current Angle", 0).getEntry();
@@ -79,7 +79,7 @@ public class armSubsystem extends SubsystemBase{
         var PIDoutput = armPID.calculate(currentAngle,setPoint);
         d_currentAngle.setDouble(currentAngle);
         d_pidOutput.setDouble(PIDoutput);
-        moveArm(MathUtil.clamp(PIDoutput,-0.05,0.1));
+        moveArm(MathUtil.clamp(PIDoutput,-0.2,0.2));
         /* 
         if(currentAngle > .17 && setPoint == 0.0){
             moveArm(MathUtil.clamp(PIDoutput,0.05,0.1));

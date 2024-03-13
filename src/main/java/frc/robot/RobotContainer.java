@@ -90,21 +90,25 @@ public class RobotContainer {
           () -> armSubsystem.moveArm( 
             -MathUtil.applyDeadband(m_scorerController.getLeftTriggerAxis(), OIConstants.kDeadband)), 
           armSubsystem));
+          */
 
   shooterSubsystem.setDefaultCommand(
       new RunCommand(
       () -> shooterSubsystem.shoot(
         -MathUtil.applyDeadband(m_scorerController.getRightTriggerAxis(), OIConstants.kDeadband))
       ,shooterSubsystem));
-      */
+      
+      
     intakeSubsystem.setDefaultCommand(
       new RunCommand(()-> intakeSubsystem.rightStickIntake(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), intakeSubsystem)
     );
     // set point-constantly be running
     
+    
     armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.moveArm(ScoringConstants.armMaxSpeed, 
                                   -MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)),
                                    armSubsystem));
+                                   
                                    
 
     //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
