@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ScoringConstants;
 import frc.robot.subsystems.armSubsystem;
 
 public class armCommand extends Command {
@@ -15,9 +16,17 @@ public class armCommand extends Command {
 
     @Override
     public void initialize(){}
+    
 
     @Override
     public void execute(){
+        if (armSubsystem.getAngle() > ScoringConstants.armMaxAngle) {
+            armSubsystem.moveArm(-speed);
+        }
+
+        if(armSubsystem.getAngle() < ScoringConstants.armMinAngle) { 
+            armSubsystem.moveArm(speed);
+        }
         //if arm angle is greater that "180" but less than "45" then :
             armSubsystem.moveArm(speed);
             //System.out.println("command error");
