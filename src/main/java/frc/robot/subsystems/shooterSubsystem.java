@@ -35,5 +35,9 @@ public class shooterSubsystem extends SubsystemBase{
         shootMotorBack.set(ampShotSpeedsBack);//325 //0.235
         shootMotorFront.set(ampShotSpeedsFront);//265 //0.16
     }
+    public void adjustAmpShot(double adjustment){
+        ampShotSpeedsBack += adjustment;
+        ampShotSpeedsFront += adjustment;
+    }
     
 }

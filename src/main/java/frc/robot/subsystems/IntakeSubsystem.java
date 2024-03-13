@@ -60,12 +60,12 @@ public class IntakeSubsystem extends SubsystemBase{
     public void rightStickIntake(double rightStickPos){
         //should take in stick position and then choose wether to do either inatke or reversed index
         if(rightStickPos > 0.0){
-            intakeMotor.set(ScoringConstants.intakeSpeed);
-            directionalIntakeMotor.set(ScoringConstants.intakeSpeed);
-            indexer.set(ScoringConstants.indexerSpeed);
+            enableIntake(ScoringConstants.intakeSpeed);
         }
         else if(rightStickPos < 0.0){
             indexer.set(-ScoringConstants.indexerSpeed);
+            directionalIntakeMotor.set(ScoringConstants.intakeSpeed);
+            intakeMotor.set(ScoringConstants.intakeSpeed);
         }
         else{
             intakeMotor.stopMotor();

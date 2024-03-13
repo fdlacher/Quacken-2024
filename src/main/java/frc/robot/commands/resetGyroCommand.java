@@ -14,7 +14,6 @@ public class resetGyroCommand extends Command {
 
     @Override
     public void execute(){ 
-
         driveSubsystem.zeroHeading();
     }
 

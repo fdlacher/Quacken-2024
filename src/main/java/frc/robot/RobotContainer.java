@@ -21,11 +21,13 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ScoringConstants;
 import frc.robot.commands.ampShotCommand;
 import frc.robot.commands.armCommand;
+import frc.robot.commands.autoDriveCommand;
 import frc.robot.commands.intakeCommand;
 import frc.robot.commands.intakeDirectionCommand;
 import frc.robot.commands.inverseIndex;
 import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.resetGyroCommand;
+import frc.robot.commands.setArmSetPointCommand;
 import frc.robot.commands.shootCommand;
 import frc.robot.commands.stopShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
@@ -77,8 +79,8 @@ public class RobotContainer {
             () -> m_robotDrive.drive(
                 -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDeadband),
-                -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband),
-                OIConstants.fieldRelative, true),
+                -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband+.2),
+                OIConstants.fieldRelative, true), // be careful when false
             m_robotDrive));
     /*
  armSubsystem.setDefaultCommand(
@@ -96,9 +98,15 @@ public class RobotContainer {
     intakeSubsystem.setDefaultCommand(
       new RunCommand(()-> intakeSubsystem.rightStickIntake(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), intakeSubsystem)
     );
+    // set point-constantly be running
+    
     armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.moveArm(ScoringConstants.armMaxSpeed, 
                                   -MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)),
                                    armSubsystem));
+                                   
+
+    //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
+    
            
   }
 
@@ -139,11 +147,11 @@ public class RobotContainer {
     Trigger dScorerUP = m_scorerController.povUp();  // intake angle -//temp arm up
     Trigger dScorerDOWN = m_scorerController.povDown(); //speaker angle -//temp arm down
     Trigger dScorerRIGHT = m_scorerController.povRight(); //stow arm
-    Trigger dScorerLEFT = m_scorerController.povDown(); // amp angle
+    Trigger dScorerLEFT = m_scorerController.povLeft(); // amp angle
 
     
     final resetGyroCommand resetGyro = new resetGyroCommand(m_robotDrive);
-    yDriverbutton.onTrue(resetGyro);
+    //yDriverbutton.onTrue(resetGyro);
     //intake/indexers
     final inverseIndex reverse = new inverseIndex(intakeSubsystem);
     xScorerbutton.whileTrue(reverse);
@@ -171,15 +179,22 @@ public class RobotContainer {
     final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armMaxSpeed);
     dScorerDOWN.whileTrue(armDown);
 
+    final pivotArmSpecfic testArmSpecfic = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
 
     //arm pos- preset
     final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(armSubsystem,ScoringConstants.speakerAngle);
     
     final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
 
-    final pivotArmSpecfic ampArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
+    final setArmSetPointCommand ampArm = new setArmSetPointCommand(armSubsystem, 0.0);
+    aScorerButton.onTrue(ampArm);
 
-    final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
+    final setArmSetPointCommand intakeArm = new setArmSetPointCommand(armSubsystem, 0.13); //Placeholder! TODO: Change the angle.
+    dScorerRIGHT.onTrue(intakeArm);
+
+    final setArmSetPointCommand speakerArm = new setArmSetPointCommand(armSubsystem, 0.14); //Placeholder! TODO: Change the angle
+    bScorerbutton.onTrue(speakerArm);//There might be a better button for this, IDK.
+    //final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
       
   }
 
@@ -239,8 +254,8 @@ public class RobotContainer {
     //return Commands.run(shoot, shooterSubsystem);
     //return Commands.runOnce(()-> shoot, shooterSubsystem);
     //return Commands.sequence(shoot).andThen(intake).andThen(()-> m_robotDrive.drive(0.2,0.0,0.0,OIConstants.fieldRelative,true)).until(()->new WaitCommand(3).isFinished()).andThen(()-> m_robotDrive.drive(0,0,0,OIConstants.fieldRelative,true)).andThen(stopShoot); //problem, drive doesnt stop
-    
-    
+    autoDriveCommand backwards = new autoDriveCommand(m_robotDrive);
+
     return Commands.runOnce(
       () -> shooterSubsystem.shoot(),
       shooterSubsystem).andThen(new WaitCommand(2))
@@ -248,6 +263,8 @@ public class RobotContainer {
       intakeSubsystem).andThen(new WaitCommand(5))
       .andThen(new WaitCommand(1)).andThen(()-> shooterSubsystem.endShoot(),shooterSubsystem)
       .andThen(()-> m_robotDrive.drive(0.0,0.5,0.0,OIConstants.fieldRelative,true),m_robotDrive);
+      //.andThen(backwards);
+    
   }
 
 }

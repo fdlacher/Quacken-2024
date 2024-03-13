@@ -34,18 +34,22 @@ public final class Constants {
 
     public static final double kDirectionSlewRate = 1.2; // radians per second
     public static final double kMagnitudeSlewRate = 1.8; // percent per second (1 = 100%)
-    public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
+    public static final double kRotationalSlewRate = 2.5; // percent per second (1 = 100%)
 
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(24);
     // Distance between centers of right and left wheels on robot
     public static final double kWheelBase = Units.inchesToMeters(24);
+    //br 16, 5.5
+    //bl 5.5, 3in
+    //fl 3, 15
+    //fr 15, 16
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-        new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-        new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-        new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-        new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+        new Translation2d(kWheelBase / 2, kTrackWidth / 2), //fr? 15, 16
+        new Translation2d(kWheelBase / 2, -kTrackWidth / 2), //fl 15, 3
+        new Translation2d(-kWheelBase / 2, kTrackWidth / 2), //br 5.5 16
+        new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)); //bl? 5.5 3
 
     // Angular offsets of the modules relative to the chassis in radians
     public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2;
@@ -114,7 +118,7 @@ public final class Constants {
     public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
     public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
 
-    public static final int kDrivingMotorCurrentLimit = 50; // amps
+    public static final int kDrivingMotorCurrentLimit = 50; // amps?
     public static final int kTurningMotorCurrentLimit = 20; // amps
   }
 
@@ -123,7 +127,7 @@ public final class Constants {
         public static final int kDriverControllerPort = 0;
         public static final int kScorerControllerPort = 1;
         
-        public static final boolean fieldRelative = true;
+        public static final boolean fieldRelative = false;
 
         // pretty sure this is better dependant on the controller
         public static final int kDriverYAxis = 1;
@@ -164,10 +168,10 @@ public final class Constants {
 
     public static final double triggerDeadBand = 0.3;
     
-    public static final int speakerAngle = 33;
-    public static final int stowAngle = 3;
-    public static final int ampAngle = 10;
-    public static final int intakeAngle = 0;
+    public static final double speakerAngle = 0.15;
+    public static final double stowAngle = 0.0;
+    public static final double ampAngle = 0.340;
+    public static final double intakeAngle = 0.235;
 
     public static final int kShootSetMotor = 19;//Indexer?
     public static final int kRightShootGoalMotor1 = 18;
@@ -177,12 +181,12 @@ public final class Constants {
     public static final int kleftArmMotor = 11;//Pivot?
     public static final int kRightArmMotor = 14;//Pivot?
 
-    public static final double armMinSpeed = 0.10;
-    public static final double armMaxSpeed = 0.15;
+    public static final double armMinSpeed = 0.05;
+    public static final double armMaxSpeed = 0.05;
 
     public static final double shootSpeed = 1;
     public static final double ampShotSpeedsBack = 0.235;//325 //0.235
-    public static final double ampShotSpeedsFront = 0.16;//265 //0.16;
+    public static final double ampShotSpeedsFront = 0.18;//265 //0.16;
     public static final double indexSpeed = 0.5;
     
 }

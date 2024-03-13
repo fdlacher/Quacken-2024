@@ -11,7 +11,6 @@ import frc.robot.subsystems.armSubsystem;
 
 public class pivotArmSpecfic extends Command {
     private final armSubsystem armSubsystem;
-    private final boolean continueArm;
     private Supplier<Double> endAngle;
 
     private PIDController armPID = new PIDController(0.03,0,0);//Tune these values!!
@@ -20,33 +19,35 @@ public class pivotArmSpecfic extends Command {
         this(armSubsystem, () -> endAngle, false);
     }
 
-    public pivotArmSpecfic(armSubsystem armSubsystem, double endAngle, boolean continueArm){ 
-        this(armSubsystem, () -> endAngle, continueArm);
-    }
-        
- 
+
     public pivotArmSpecfic(
         armSubsystem armSubsystem, 
         Supplier<Double> endAngle, 
         boolean continueArm)
     {
     this.armSubsystem = armSubsystem;
-    this.continueArm = continueArm;
+    this.endAngle = endAngle;
     addRequirements(armSubsystem);
     }
 
 
     @Override
     public void initialize(){
-        armPID.setSetpoint(endAngle.get());
+        double goal = endAngle.get();
+        armPID.setSetpoint(goal);
         armPID.setTolerance(2);//Tune
     }
 
     @Override
     public void execute(){
+        /*
+        System.out.println("testing");
         double speed = armPID.calculate(armSubsystem.getAngle());
+        System.out.println(speed);
         speed = MathUtil.clamp(speed,-ScoringConstants.armMinSpeed, -ScoringConstants.armMaxSpeed);
         armSubsystem.moveArm(speed);
+        */
+        armSubsystem.moveArmSpecific(endAngle.get());
     }
     @Override
     public void end(boolean interrupt){ 
@@ -54,10 +55,6 @@ public class pivotArmSpecfic extends Command {
     }
     @Override
     public boolean isFinished() { 
-        if(continueArm){ 
-            return false;
-        }
-
         return armPID.atSetpoint();
     }
 }
