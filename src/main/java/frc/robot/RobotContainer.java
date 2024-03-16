@@ -289,7 +289,7 @@ public class RobotContainer {
     //return Commands.sequence(shoot).andThen(intake).andThen(()-> m_robotDrive.drive(0.2,0.0,0.0,OIConstants.fieldRelative,true)).until(()->new WaitCommand(3).isFinished()).andThen(()-> m_robotDrive.drive(0,0,0,OIConstants.fieldRelative,true)).andThen(stopShoot); //problem, drive doesnt stop
     autoDriveCommand backwards = new autoDriveCommand(m_robotDrive);
 
-    return Commands.runOnce(
+    /* return Commands.runOnce(
       () -> shooterSubsystem.shoot(),
       shooterSubsystem).andThen(new WaitCommand(2))
       .andThen(()->intakeSubsystem.enableIntake(0.5),
@@ -297,6 +297,39 @@ public class RobotContainer {
       .andThen(new WaitCommand(1)).andThen(()-> shooterSubsystem.endShoot(),shooterSubsystem)
       .andThen(()-> m_robotDrive.drive(0.0,0.5,0.0,OIConstants.fieldRelative,true),m_robotDrive);
       //.andThen(backwards);
+ */
+    //Load an autobuilder from autobuilder (autobuilder is in DriveSubsystem)
+    public class RobotContainer 
+    {
+
+      public Command getAutonomousCommand() 
+      {
+        return new PathPlannerAuto("Example Auto");
+      }
+    }
+    
+  public class RobotContainer 
+  {
+    private final SendableChooser<Command> autoChooser;
+
+  public RobotContainer() {
+    // ...
+
+    // Build an auto chooser. This will use Commands.none() as the default option.
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    // Another option that allows you to specify the default auto by its name
+    // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+  }
+
+  public Command getAutonomousCommand() 
+    {
+    return autoChooser.getSelected();
+    }
+}
+    
     
   }
 
