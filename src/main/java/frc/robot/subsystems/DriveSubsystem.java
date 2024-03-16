@@ -20,14 +20,15 @@ import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
 
-  //AutoBuilder.configureHolonomic(
-   /*  this::getPose,
+  AutoBuilder.configureHolonomic(
+     this::getPose,
     this::resetOdometry,
     this::DriveConstants.kDriveKinematics,
     this::drive,
@@ -49,11 +50,11 @@ public class DriveSubsystem extends SubsystemBase {
   );
 
   PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
- */
-/* 
- private Field2d field 
-  SmartDashboard.putData("Field", field);
- */
+ 
+    
+ private Field2d field = new Field2d();
+ SmartDashboard.putData("Field", field);
+
 
 
 
