@@ -15,6 +15,8 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -47,6 +49,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -242,7 +245,7 @@ public class RobotContainer {
    */
 
     //Load an autobuilder from autobuilder (autobuilder is in DriveSubsystem)
-    public Command getAutonomousCommand() 
+    public Command getAutonomousCommand1() 
     {
       return new PathPlannerAuto("Example Auto");
     }
@@ -320,3 +323,4 @@ public class RobotContainer {
       //.andThen(backwards);
  */
     
+  }
