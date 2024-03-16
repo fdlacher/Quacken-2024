@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.pathplanner.lib.util.PathPlannerLogging;
+import com.pathplanner.lib.util.ReplanningConfig;
+import com.pathplanner.lib.util.PathPlannerLogging;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,12 +17,46 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.DriverStation;
+import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
+
+  //AutoBuilder.configureHolonomic(
+   /*  this::getPose,
+    this::resetOdometry,
+    this::DriveConstants.kDriveKinematics,
+    this::drive,
+    new HolonomicPathFollowerConfig( 
+      new PIDconstants(5.0,0.0,0.0),
+      new PIDConstants(5.0,0.0,0.0),
+      DriveConstants.kMaxSpeedMetersPerSecond,
+      DriveConstants.kTrackWidth,
+      new ReplanningConfig()
+    ),
+    () -> { 
+      var alliance = DriverStation.getAlliance();
+      if(alliance.isPresent()) { 
+        //return alliance.get() == DriverStation.Alliance.Red; 
+      }
+      //return false;
+    },
+    this //Set requirements
+  );
+
+  PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
+ */
+/* 
+ private Field2d field 
+  SmartDashboard.putData("Field", field);
+ */
+
+
+
   // Create MAXSwerveModules
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
@@ -89,6 +126,8 @@ public class DriveSubsystem extends SubsystemBase {
   public Pose2d getPose() {
     return m_odometry.getPoseMeters();
   }
+
+  
 
   /**
    * Resets the odometry to the specified pose.
