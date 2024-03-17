@@ -49,6 +49,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -125,8 +126,16 @@ public class RobotContainer {
                                    
 
     //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
+    final shootCommand shoot = new shootCommand(shooterSubsystem);
+    final ampShotCommand ampShoot = new ampShotCommand(shooterSubsystem);
+    final intakeCommand intake = new intakeCommand(intakeSubsystem);
+    final autoDriveCommand autoDrive = new autoDriveCommand(m_robotDrive);
+    NamedCommands.registerCommand("Shoot", shoot);
+    NamedCommands.registerCommand("ampShoot", ampShoot);
+    NamedCommands.registerCommand("intake", intake);
+
+
     
-           
   }
 
   /**
@@ -245,12 +254,12 @@ public class RobotContainer {
    */
 
     //Load an autobuilder from autobuilder (autobuilder is in DriveSubsystem)
-    public Command getAutonomousCommand1() 
+    public Command getSingleAutonomousCommand1() 
     {
-      return new PathPlannerAuto("Example Auto");
+      return new PathPlannerAuto("Blue 1");//Just a test auto.
     }
 
-  public Command getAutonomousCommand() 
+  public Command getSelectedAutonomousCommand() 
   {
     return autoChooser.getSelected();
   }
