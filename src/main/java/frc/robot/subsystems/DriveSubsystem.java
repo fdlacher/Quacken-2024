@@ -185,7 +185,6 @@ public void driveFieldRelative(ChassisSpeeds fieldrelativeSpeeds){
     System.out.println(my_gyro.getAngle()); //print position
     double xSpeedCommanded;
     double ySpeedCommanded;
-    d_gyroAnglez.getDouble(-my_gyro.getAngle()); //calls value to shuffle board
 
     if (rateLimit) {
       // Convert XY to polar for rate limiting
