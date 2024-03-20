@@ -4,6 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.PathPlannerLogging;
+import com.pathplanner.lib.util.ReplanningConfig;
+import com.pathplanner.lib.util.PathPlannerLogging;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -15,8 +20,12 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.DriverStation;
+import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
@@ -25,8 +34,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 
 public class DriveSubsystem extends SubsystemBase {
-
-  private GenericEntry d_gyroAnglez = Shuffleboard.getTab("Drive").add("gryro anglez", 0).getEntry();
   // Create MAXSwerveModules
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
@@ -75,6 +82,37 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
+
+ final Field2d field = new Field2d();
+ SmartDashboard.putData("Field", field);
+  AutoBuilder.configureHolonomic(
+     this::getPose,
+    this::resetOdometry,
+    this::getSpeeds,
+    this::driveFieldRelative,
+    new HolonomicPathFollowerConfig( 
+      new PIDConstants(5.0,0.0,0.0),
+      new PIDConstants(5.0,0.0,0.0),
+      DriveConstants.kMaxSpeedMetersPerSecond,
+      DriveConstants.kTrackWidth,
+      new ReplanningConfig()
+    ),
+    () -> { 
+      var alliance = DriverStation.getAlliance();
+      if(alliance.isPresent()) { 
+        return alliance.get() == DriverStation.Alliance.Red; 
+      }
+      return false;
+    },
+    this //Set requirements
+  );
+
+  PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
+ 
+
+
+
+
   }
 
   @Override
@@ -99,6 +137,23 @@ public class DriveSubsystem extends SubsystemBase {
     return m_odometry.getPoseMeters();
   }
 
+  public ChassisSpeeds getSpeeds(){ 
+    return DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());  
+  }
+
+  
+public SwerveModuleState[] getModuleStates(){ 
+  return   new SwerveModuleState[] {
+            m_frontLeft.getState(),
+            m_frontRight.getState(),
+            m_rearLeft.getState(),
+            m_rearRight.getState()
+        };
+}
+
+public void driveFieldRelative(ChassisSpeeds fieldrelativeSpeeds){ 
+  driveFieldRelative(ChassisSpeeds.fromFieldRelativeSpeeds(fieldrelativeSpeeds, getPose().getRotation()));
+}
   /**
    * Resets the odometry to the specified pose.
    *

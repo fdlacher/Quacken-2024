@@ -15,6 +15,8 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -47,6 +49,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -62,6 +66,8 @@ public class RobotContainer {
    private final armSubsystem armSubsystem = new armSubsystem();
    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
+   private final SendableChooser<Command> autoChooser;
+
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   CommandXboxController m_scorerController = new CommandXboxController(OIConstants.kScorerControllerPort);
@@ -70,6 +76,14 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    // Build an auto chooser. This will use Commands.none() as the default option.
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    // Another option that allows you to specify the default auto by its name
+    // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    
     // Configure the button bindings
     configureButtonBindings();
 
@@ -113,8 +127,16 @@ public class RobotContainer {
                                    
 
     //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
+    final shootCommand shoot = new shootCommand(shooterSubsystem);
+    final ampShotCommand ampShoot = new ampShotCommand(shooterSubsystem);
+    final intakeCommand intake = new intakeCommand(intakeSubsystem);
+    final autoDriveCommand autoDrive = new autoDriveCommand(m_robotDrive);
+    NamedCommands.registerCommand("Shoot", shoot);
+    NamedCommands.registerCommand("ampShoot", ampShoot);
+    NamedCommands.registerCommand("intake", intake);
+
+
     
-           
   }
 
   /**
@@ -232,8 +254,19 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
 
-   
-  public Command getAutonomousCommand() {
+    //Load an autobuilder from autobuilder (autobuilder is in DriveSubsystem)
+    public Command getSingleAutonomousCommand1() 
+    {
+      return new PathPlannerAuto("Blue 1");//Just a test auto.
+    }
+
+  public Command getSelectedAutonomousCommand() 
+  {
+    return autoChooser.getSelected();
+  }
+  
+    
+  //public Command getAutonomousCommand() {
     /*
     // Create config for trajectory
 
@@ -288,9 +321,9 @@ public class RobotContainer {
     //return Commands.run(shoot, shooterSubsystem);
     //return Commands.runOnce(()-> shoot, shooterSubsystem);
     //return Commands.sequence(shoot).andThen(intake).andThen(()-> m_robotDrive.drive(0.2,0.0,0.0,OIConstants.fieldRelative,true)).until(()->new WaitCommand(3).isFinished()).andThen(()-> m_robotDrive.drive(0,0,0,OIConstants.fieldRelative,true)).andThen(stopShoot); //problem, drive doesnt stop
-    autoDriveCommand backwards = new autoDriveCommand(m_robotDrive);
+    //autoDriveCommand backwards = new autoDriveCommand(m_robotDrive);
 
-    return Commands.runOnce(
+    /* return Commands.runOnce(
       () -> shooterSubsystem.shoot(),
       shooterSubsystem).andThen(new WaitCommand(2))
       .andThen(()->intakeSubsystem.enableIntake(0.5),
@@ -298,7 +331,6 @@ public class RobotContainer {
       .andThen(new WaitCommand(1)).andThen(()-> shooterSubsystem.endShoot(),shooterSubsystem)
       .andThen(()-> m_robotDrive.drive(0.0,0.5,0.0,OIConstants.fieldRelative,true),m_robotDrive);
       //.andThen(backwards);
+ */
     
   }
-
-}
