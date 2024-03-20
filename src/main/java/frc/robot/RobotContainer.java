@@ -82,8 +82,9 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband+.2),
-                OIConstants.fieldRelative, true), // be careful when false
+                true, true), // be careful when false
             m_robotDrive));
+            
     /*
  armSubsystem.setDefaultCommand(
         new RunCommand(
@@ -157,7 +158,7 @@ public class RobotContainer {
 
     
     final resetGyroCommand resetGyro = new resetGyroCommand(m_robotDrive);
-    //yDriverbutton.onTrue(resetGyro);
+    yDriverbutton.onTrue(resetGyro);
     //intake/indexers
     final inverseIndex reverse = new inverseIndex(intakeSubsystem);
     xScorerbutton.whileTrue(reverse);

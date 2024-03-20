@@ -10,16 +10,12 @@ public class resetGyroCommand extends Command {
             addRequirements(driveSubsystem);
     }  
     @Override
-    public void initialize(){}
-
-    @Override
-    public void execute(){ 
+    public void initialize(){
         driveSubsystem.zeroHeading();
     }
-
     @Override
-    public boolean isFinished(){ 
-        return false;
+    public boolean isFinished(){
+        return true;
     }
 }
 
