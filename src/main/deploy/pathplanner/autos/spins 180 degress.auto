@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 14.690347329412607,
-      "y": 3.7889060393505414
+      "x": 8.023582970242865,
+      "y": 4.124382094918037
     },
-    "rotation": 179.17784753131855
+    "rotation": 177.33699923393286
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 2 Drive"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
+            "pathName": "spin 180"
           }
         }
       ]
