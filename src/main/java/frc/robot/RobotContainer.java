@@ -257,7 +257,7 @@ public class RobotContainer {
     //Load an autobuilder from autobuilder (autobuilder is in DriveSubsystem)
     public Command getSingleAutonomousCommand1() 
     {
-      return new PathPlannerAuto("Blue 1");//Just a test auto.
+      return new PathPlannerAuto("Red 1");//Just a test auto.
     }
 
   public Command getSelectedAutonomousCommand() 
