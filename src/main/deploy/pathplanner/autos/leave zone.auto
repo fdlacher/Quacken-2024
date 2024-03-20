@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 14.690347329412607,
-      "y": 3.7889060393505414
+      "x": 0.761513061487663,
+      "y": 6.748988882593149
     },
-    "rotation": 179.17784753131855
+    "rotation": -123.20657031508958
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 2 Drive"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
+            "pathName": "New Path"
           }
         }
       ]

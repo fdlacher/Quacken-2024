@@ -19,6 +19,7 @@ public class shootCommand extends Command {
 
     @Override
     public void execute() {
+        System.out.println("Shooting!");
         shooterSubsystem.shoot(ScoringConstants.shootSpeed);
     }
 
