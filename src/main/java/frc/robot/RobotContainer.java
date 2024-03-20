@@ -131,9 +131,11 @@ public class RobotContainer {
     final ampShotCommand ampShoot = new ampShotCommand(shooterSubsystem);
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
     final autoDriveCommand autoDrive = new autoDriveCommand(m_robotDrive);
+    final resetGyroCommand reset = new resetGyroCommand(m_robotDrive);
     NamedCommands.registerCommand("Shoot", shoot);
     NamedCommands.registerCommand("ampShoot", ampShoot);
     NamedCommands.registerCommand("intake", intake);
+    NamedCommands.registerCommand("Reset", reset);
 
 
     
