@@ -20,6 +20,6 @@ public class shootAndArm extends Command {
     @Override
     public void execute(){ 
         armSubsystem.moveArm(ScoringConstants.armMaxSpeed);
-        shooterSubsystem.shoot(ScoringConstants.shootSpeed);
+        shooterSubsystem.shoot(ScoringConstants.speakerSpeed);
     }
 }

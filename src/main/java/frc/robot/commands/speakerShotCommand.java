@@ -4,11 +4,11 @@ import frc.robot.Constants.ScoringConstants;
 import frc.robot.subsystems.shooterSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
-public class shootCommand extends Command {
+//Shoots with the speed necessary to score in the speaker.
+public class speakerShotCommand extends Command {
     private final shooterSubsystem shooterSubsystem;
 
-    public shootCommand(shooterSubsystem shooterSubsystem) {
+    public speakerShotCommand(shooterSubsystem shooterSubsystem) {
         this.shooterSubsystem = shooterSubsystem;
         addRequirements(shooterSubsystem);
     }
@@ -19,8 +19,7 @@ public class shootCommand extends Command {
 
     @Override
     public void execute() {
-        System.out.println("Shooting!");
-        shooterSubsystem.shoot(ScoringConstants.shootSpeed);
+        shooterSubsystem.shootSpeaker();
     }
 
     @Override

@@ -184,7 +184,7 @@ public final class Constants {
     public static final double armMinSpeed = 0.05;
     public static final double armMaxSpeed = 0.05;
 
-    public static final double shootSpeed = 1;
+    public static final double speakerSpeed = 1;
     public static final double ampShotSpeedsBack = 0.335;//325 //0.235
     public static final double ampShotSpeedsFront = 0.268;//265 //0.16;
     public static final double indexSpeed = 0.5;

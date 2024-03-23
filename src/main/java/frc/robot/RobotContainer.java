@@ -30,7 +30,7 @@ import frc.robot.commands.inverseIndex;
 import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.resetGyroCommand;
 import frc.robot.commands.setArmSetPointCommand;
-import frc.robot.commands.shootCommand;
+import frc.robot.commands.speakerShotCommand;
 import frc.robot.commands.stopShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.armSubsystem;
@@ -127,7 +127,7 @@ public class RobotContainer {
                                    
 
     //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
-    final shootCommand shoot = new shootCommand(shooterSubsystem);
+    final speakerShotCommand shoot = new speakerShotCommand(shooterSubsystem);
     final ampShotCommand ampShoot = new ampShotCommand(shooterSubsystem);
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
     final autoDriveCommand autoDrive = new autoDriveCommand(m_robotDrive);
@@ -196,8 +196,8 @@ public class RobotContainer {
 
 
     //shoot
-    final shootCommand shoot = new shootCommand(shooterSubsystem);
-    rightTrigger.whileTrue(shoot);
+    final speakerShotCommand speakerShot = new speakerShotCommand(shooterSubsystem);
+    rightTrigger.whileTrue(speakerShot);
     
     final ampShotCommand ampShot = new ampShotCommand(shooterSubsystem);
     leftTrigger.whileTrue(ampShot);

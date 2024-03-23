@@ -154,7 +154,7 @@ public SwerveModuleState[] getModuleStates(){
 public void driveFieldRelative(ChassisSpeeds fieldrelativeSpeeds){ 
   //driveFieldRelative(ChassisSpeeds.fromFieldRelativeSpeeds(fieldrelativeSpeeds, getPose().getRotation()));
   var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
-  fieldrelativeSpeeds.fromFieldRelativeSpeeds(fieldrelativeSpeeds, getPose().getRotation())
+  ChassisSpeeds.fromFieldRelativeSpeeds(fieldrelativeSpeeds, getPose().getRotation())
   );
   SwerveDriveKinematics.desaturateWheelSpeeds(
     swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
