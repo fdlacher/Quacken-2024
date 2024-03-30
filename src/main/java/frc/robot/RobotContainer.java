@@ -21,11 +21,10 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ScoringConstants;
+import frc.robot.commands.ampArmPivotBasicCommand;
 import frc.robot.commands.ampShotCommand;
 import frc.robot.commands.armCommand;
-import frc.robot.commands.autoDriveCommand;
 import frc.robot.commands.intakeCommand;
-import frc.robot.commands.intakeDirectionCommand;
 import frc.robot.commands.inverseIndex;
 import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.resetGyroCommand;
@@ -35,6 +34,7 @@ import frc.robot.commands.stopShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.armSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ampArmSubsystem;
 import frc.robot.subsystems.shooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -65,7 +65,7 @@ public class RobotContainer {
 
    private final armSubsystem armSubsystem = new armSubsystem();
    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-
+   private final ampArmSubsystem ampArmSubsystem = new ampArmSubsystem();
    private final SendableChooser<Command> autoChooser;
 
   // The driver's controller
@@ -130,7 +130,6 @@ public class RobotContainer {
     final speakerShotCommand shoot = new speakerShotCommand(shooterSubsystem);
     final ampShotCommand ampShoot = new ampShotCommand(shooterSubsystem);
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
-    final autoDriveCommand autoDrive = new autoDriveCommand(m_robotDrive);
     final resetGyroCommand reset = new resetGyroCommand(m_robotDrive);
     NamedCommands.registerCommand("Shoot", shoot);
     NamedCommands.registerCommand("ampShoot", ampShoot);
@@ -191,13 +190,10 @@ public class RobotContainer {
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
     aScorerButton.whileTrue(intake);
 
-    final intakeDirectionCommand changeDirection = new intakeDirectionCommand(intakeSubsystem);
-    //scorerRightStick.onTrue(changeDirection);
-
 
     //shoot
-    final speakerShotCommand speakerShot = new speakerShotCommand(shooterSubsystem);
-    rightTrigger.whileTrue(speakerShot);
+    final speakerShotCommand shoot = new speakerShotCommand(shooterSubsystem);
+    rightTrigger.whileTrue(shoot);
     
     final ampShotCommand ampShot = new ampShotCommand(shooterSubsystem);
     leftTrigger.whileTrue(ampShot);
@@ -221,12 +217,17 @@ public class RobotContainer {
     aScorerButton.onTrue(ampArm);
 
     final setArmSetPointCommand intakeArm = new setArmSetPointCommand(armSubsystem, 0.13); //Placeholder! TODO: Change the angle.
-    dScorerRIGHT.onTrue(intakeArm);
+    //dScorerRIGHT.onTrue(intakeArm);
 
     final setArmSetPointCommand speakerArm = new setArmSetPointCommand(armSubsystem, 0.14); //Placeholder! TODO: Change the angle
-    bScorerbutton.onTrue(speakerArm);//There might be a better button for this, IDK.
+    //bScorerbutton.onTrue(speakerArm);//There might be a better button for this, IDK.
     //final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
-      
+    
+    final ampArmPivotBasicCommand ampMoveArmUp = new ampArmPivotBasicCommand(ampArmSubsystem,0.05);
+    bScorerbutton.onTrue(ampMoveArmUp);
+
+    final ampArmPivotBasicCommand ampMoveArmDown = new ampArmPivotBasicCommand(ampArmSubsystem, -0.05);
+    yScorerbutton.onTrue(ampMoveArmDown);
   }
 //public Command getTestAutoCommand(){ 
   

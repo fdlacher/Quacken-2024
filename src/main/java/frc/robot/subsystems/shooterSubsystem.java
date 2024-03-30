@@ -9,8 +9,8 @@ import frc.robot.Constants.ScoringConstants;
 public class shooterSubsystem extends SubsystemBase{
     private final CANSparkMax shootMotorBack;
     private final CANSparkMax shootMotorFront;
-    private double ampShotSpeedsBack = ScoringConstants.ampShotSpeedsBack;
-    private double ampShotSpeedsFront = ScoringConstants.ampShotSpeedsFront;
+    private double ampShotSpeedsBack = -ScoringConstants.ampShotSpeedsBack;
+    private double ampShotSpeedsFront = -ScoringConstants.ampShotSpeedsFront;
 
 
     public shooterSubsystem(){ 
@@ -18,8 +18,8 @@ public class shooterSubsystem extends SubsystemBase{
         shootMotorFront = new CANSparkMax(ScoringConstants.kLeftShootGoalMotor, MotorType.kBrushless);
     }
     public void shootSpeaker(){ 
-        shootMotorBack.set(ScoringConstants.speakerSpeed);
-        shootMotorFront.set(ScoringConstants.speakerSpeed);
+        shootMotorBack.set(-ScoringConstants.speakerSpeed);
+        shootMotorFront.set(-ScoringConstants.speakerSpeed);
     }
     public void shoot(double speed){ 
         shootMotorBack.set(speed);
