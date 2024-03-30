@@ -14,8 +14,8 @@ public class shooterSubsystem extends SubsystemBase{
 
 
     public shooterSubsystem(){ 
-        shootMotorBack = new CANSparkMax(ScoringConstants.kRightShootGoalMotor1, MotorType.kBrushless);
-        shootMotorFront = new CANSparkMax(ScoringConstants.kLeftShootGoalMotor, MotorType.kBrushless);
+        shootMotorBack = new CANSparkMax(ScoringConstants.kBackShootGoalMotor1, MotorType.kBrushless);
+        shootMotorFront = new CANSparkMax(ScoringConstants.kFrontShootGoalMotor, MotorType.kBrushless);
     }
     public void shootSpeaker(){ 
         shootMotorBack.set(-ScoringConstants.speakerSpeed);

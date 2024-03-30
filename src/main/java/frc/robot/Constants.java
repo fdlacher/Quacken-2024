@@ -58,15 +58,15 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 13;
-    public static final int kRearLeftDrivingCanId = 3;
-    public static final int kFrontRightDrivingCanId = 16;
-    public static final int kRearRightDrivingCanId = 6;
+    public static final int kFrontLeftDrivingCanId = 13; //FLD
+    public static final int kBackLeftDrivingCanId = 3; //BLD
+    public static final int kFrontRightDrivingCanId = 16; //FRD
+    public static final int kBackRightDrivingCanId = 6; // BRD
 
-    public static final int kFrontLeftTurningCanId = 12;
-    public static final int kRearLeftTurningCanId = 2;
-    public static final int kFrontRightTurningCanId = 15;
-    public static final int kRearRightTurningCanId = 5;
+    public static final int kFrontLeftTurningCanId = 12; // FLT
+    public static final int kBackLeftTurningCanId = 2; //BLT
+    public static final int kFrontRightTurningCanId = 15; // FRT
+    public static final int kBackRightTurningCanId = 5; // BRT
 
     public static final boolean kGyroReversed = false;
   }
@@ -174,13 +174,12 @@ public final class Constants {
     public static final double intakeAngle = 0.235;
 
     public static final int kShootSetMotor = 19;//Indexer?
-    public static final int kRightShootGoalMotor1 = 20;
-    public static final int kLeftShootGoalMotor = 17;
+    public static final int kBackShootGoalMotor1 = 17;
+    public static final int kFrontShootGoalMotor = 20;
     
-    public static final int kAmpArmMotor = 18;
 
-    public static final int kleftArmMotor = 11;//Pivot?
-    public static final int kRightArmMotor = 14;//Pivot?
+    public static final int kleftArmMotor = 14;//Pivot?
+    public static final int kRightArmMotor = 11;//Pivot?
 
     public static final double armMinSpeed = 0.05;
     public static final double armMaxSpeed = 0.05;
@@ -190,5 +189,6 @@ public final class Constants {
     public static final double ampShotSpeedsFront = 0.268;//265 //0.16;
     public static final double indexSpeed = 0.5;
     
+    public static final int kAmpArmMotor = 18;
 }
 }
