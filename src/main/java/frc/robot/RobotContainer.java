@@ -91,29 +91,121 @@ public class RobotContainer {
    * joysticks}.
    */
   public RobotContainer() {
-    swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
-        swerveSubsystem,
-        () -> -m_driverController.getLeftY(),//getRawAxis(OIConstants.kDriverXAxis),
-        () -> -m_driverController.getLeftX(),//getRawAxis(OIConstants.kDriverYAxis), // The swerve drive auto github had x and y switched.
-        () -> m_driverController.getRightX(),//(OIConstants.kDriverRotAxis),
-        () -> !m_joysticks.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+    // Build an auto chooser. This will use Commands.none() as the default option.
+    autoChooser = AutoBuilder.buildAutoChooser();
 
-    configureBindings();
+    // Another option that allows you to specify the default auto by its name
+    // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
 
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    
+    // Configure the button bindings
+    configureButtonBindings();
+
+    // Configure default commands
+    m_robotDrive.setDefaultCommand(
+        // The left stick controls translation of the robot.
+        // Turning is controlled by the X axis of the right stick.
+        new RunCommand(
+            () -> m_robotDrive.drive(
+                -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDeadband),
+                -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDeadband),
+                -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband+.2),
+                true, true), // be careful when false
+            m_robotDrive));
+            
+    /*
+ armSubsystem.setDefaultCommand(
+        new RunCommand(
+          () -> armSubsystem.moveArm( 
+            -MathUtil.applyDeadband(m_scorerController.getLeftTriggerAxis(), OIConstants.kDeadband)), 
+          armSubsystem));
+          */
+          
+  //Is this redundant?
+  shooterSubsystem.setDefaultCommand(
+      new RunCommand(
+      () -> shooterSubsystem.shoot(
+        -MathUtil.applyDeadband(m_scorerController.getRightTriggerAxis(), OIConstants.kDeadband))
+      ,shooterSubsystem));
+      
+      
+    intakeSubsystem.setDefaultCommand(
+      new RunCommand(()-> intakeSubsystem.rightStickIntake(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), intakeSubsystem)
+    );
+    // set point-constantly be running
+    
+    
+    armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.moveArm(ScoringConstants.armMaxSpeed, 
+                                  -MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)),
+                                   armSubsystem));
+                                   
+                                   
+
+    //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
+
+    //Auto Commands
+    //these are used for pathplanner and need the name that is used in pathPlanner.
+  
+    final speakerShotCommand shoot = new speakerShotCommand(shooterSubsystem);
+    final ampShotCommand ampShoot = new ampShotCommand(shooterSubsystem);
+    final intakeCommand intake = new intakeCommand(intakeSubsystem);
+    final resetGyroCommand reset = new resetGyroCommand(m_robotDrive);
+    NamedCommands.registerCommand("Shoot", shoot);
+    NamedCommands.registerCommand("ampShoot", ampShoot);
+    NamedCommands.registerCommand("intake", intake);
+    NamedCommands.registerCommand("Reset", reset);
+
+
+    
   }
 
-  private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    // new Trigger(m_exampleSubsystem::exampleCondition)
-    // .onTrue(new ExampleCommand(m_exampleSubsystem));
-    Trigger aButton = m_scorerController.a();
-    Trigger ybutton = m_scorerController.y();
-    Trigger xbutton = m_scorerController.x();
-    Trigger bbutton = m_scorerController.b();
-    Trigger dUP = m_scorerController.povUp();
-    Trigger dDOWN = m_scorerController.povDown();
-      final shootCommand shoot = new shootCommand(shooterSubsystem);
-      aButton.whileTrue(shoot);
+  /**
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
+   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its
+   * subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling
+   * passing it to a
+   * {@link JoystickButton}.
+   */
+  private void configureButtonBindings() {
+    new RunCommand(
+            () -> m_robotDrive.setX(),
+            m_robotDrive);//unknown if this will register...
+
+    //Trigger aDriverButton = m_scorerController.a();//Bumber to speaker
+    Trigger yDriverbutton = m_driverController.y();//Reset gyro
+    //Trigger xDriverbutton = m_driverController.x();//Intake
+    //Trigger bDriverbutton = m_driverController.b();//Arm Down
+    //Trigger dDriverUP = m_driverController.povUp(); //pivot arm
+    //Trigger dDriverDriverDOWN = m_driverController.povDown(); //pivot arm
+    //Trigger dDriverRIGHT = m_driverController.povRight();
+    //Trigger dDriverLEFT = m_driverController.povDown();
+
+
+    //Trigger scorerRightStick = m_scorerController.rightStick();//flip intake - press it
+
+    Trigger aScorerButton = m_scorerController.a();
+    Trigger yScorerbutton = m_scorerController.y();
+    Trigger bScorerbutton = m_scorerController.b();
+    Trigger xScorerbutton = m_scorerController.x();
+    
+    Trigger leftTrigger = m_scorerController.leftTrigger(ScoringConstants.triggerDeadBand); //amp shot
+    Trigger rightTrigger = m_scorerController.rightTrigger(ScoringConstants.triggerDeadBand); //shoot
+
+    Trigger dScorerUP = m_scorerController.povUp();  // intake angle -//temp arm up
+    Trigger dScorerDOWN = m_scorerController.povDown(); //speaker angle -//temp arm down
+    Trigger dScorerRIGHT = m_scorerController.povRight(); //stow arm
+    Trigger dScorerLEFT = m_scorerController.povLeft(); // amp angle
+
+    
+    final resetGyroCommand resetGyro = new resetGyroCommand(m_robotDrive);
+    yDriverbutton.onTrue(resetGyro);
+    //intake/indexers
+    final inverseIndex reverse = new inverseIndex(intakeSubsystem);
+    xScorerbutton.whileTrue(reverse);
+    //new RunCommand(()->intakeSubsystem.rightStickIntake(m_scorerController.getRightY()), intakeSubsystem);
 
       // final intakeCommand intake = new intakeCommand(intakeSubsystem);
       // ybutton.whileTrue(intake);
@@ -121,9 +213,34 @@ public class RobotContainer {
       final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armSpeed);
       dUP.whileTrue(armUp);
 
-      final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armSpeed);
-      dDOWN.whileTrue(armDown);
+    final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armMaxSpeed);
+    dScorerDOWN.whileTrue(armDown);
+
+    final pivotArmSpecfic testArmSpecfic = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
+
+    //arm pos- preset
+    final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(armSubsystem,ScoringConstants.speakerAngle);
+    
+    final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
+
+    final setArmSetPointCommand ampArm = new setArmSetPointCommand(armSubsystem, 0.0);
+    aScorerButton.onTrue(ampArm);
+
+    final setArmSetPointCommand intakeArm = new setArmSetPointCommand(armSubsystem, 0.13); //Placeholder! TODO: Change the angle.
+    //dScorerRIGHT.onTrue(intakeArm);
+
+    final setArmSetPointCommand speakerArm = new setArmSetPointCommand(armSubsystem, 0.14); //Placeholder! TODO: Change the angle
+    //bScorerbutton.onTrue(speakerArm);//There might be a better button for this, IDK.
+    //final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
+    
+    final ampArmPivotBasicCommand ampMoveArmUp = new ampArmPivotBasicCommand(ampArmSubsystem,0.05);
+    bScorerbutton.onTrue(ampMoveArmUp);
+
+    final ampArmPivotBasicCommand ampMoveArmDown = new ampArmPivotBasicCommand(ampArmSubsystem, -0.05);
+    yScorerbutton.onTrue(ampMoveArmDown);
   }
+
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
