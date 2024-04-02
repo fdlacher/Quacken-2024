@@ -115,15 +115,18 @@ public class RobotContainer {
       
       
     intakeSubsystem.setDefaultCommand(
-      new RunCommand(()-> intakeSubsystem.rightStickIntake(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), intakeSubsystem)
+      new RunCommand(()-> intakeSubsystem.useIntake(-MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)), intakeSubsystem)
     );
     // set point-constantly be running
-    
-    
-    armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.moveArm(ScoringConstants.armMaxSpeed, 
-                                  -MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)),
+    armSubsystem.setDefaultCommand(
+      new RunCommand(() -> armSubsystem.MoveWithStick(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), armSubsystem)
+    );
+
+  /*   
+    armSubsystem.setDefaultCommand(
+      new RunCommand(()-> armSubsystem.moveArm(ScoringConstants.armMaxSpeed, -MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)),
                                    armSubsystem));
-                                   
+                                    */
                                    
 
     //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
@@ -171,8 +174,6 @@ public class RobotContainer {
     Trigger bScorerbutton = m_scorerController.b();
     Trigger xScorerbutton = m_scorerController.x();
     
-    Trigger leftTrigger = m_scorerController.leftTrigger(ScoringConstants.triggerDeadBand); //amp shot
-    Trigger rightTrigger = m_scorerController.rightTrigger(ScoringConstants.triggerDeadBand); //shoot
 
     Trigger dScorerUP = m_scorerController.povUp();  // intake angle -//temp arm up
     Trigger dScorerDOWN = m_scorerController.povDown(); //speaker angle -//temp arm down
@@ -191,14 +192,14 @@ public class RobotContainer {
     aScorerButton.whileTrue(intake);
 
 
-    //shoot
+/*     //shoot
     final speakerShotCommand shoot = new speakerShotCommand(shooterSubsystem);
     rightTrigger.whileTrue(shoot);
     
     final ampShotCommand ampShot = new ampShotCommand(shooterSubsystem);
     leftTrigger.whileTrue(ampShot);
 
-
+ */
     //arm pos- manual
     final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
     dScorerUP.whileTrue(armUp);
@@ -229,26 +230,7 @@ public class RobotContainer {
     final ampArmPivotBasicCommand ampMoveArmDown = new ampArmPivotBasicCommand(ampArmSubsystem, -0.05);
     yScorerbutton.onTrue(ampMoveArmDown);
   }
-//public Command getTestAutoCommand(){ 
-  
-   /*  
-    return new SequentialCommandGroup(
-      new InstantCommand(() -> shooterSubsystem.shoot()
-    ));
-    break;
-    */
-    //default:
-    //return new SequentialCommandGroup( 
-    //  new InstantCommand(() -> m_robotDrive.drive(0.5,0.0,0.0, false, true))
-    //);
 
-    // case(0):
-    // return new SequentialCommandGroup(
-    //   new InstantCommand(() -> DriveSubsystem.drive())
-    // );
-    
-  
-//}
 
 
   /**
