@@ -181,7 +181,7 @@ public final class Constants {
     public static final int kleftArmMotor = 14;//Pivot?
     public static final int kRightArmMotor = 11;//Pivot?
 
-    public static final double armMinSpeed = 0.05;
+    public static final double armMinSpeed = 0.01;
     public static final double armMaxSpeed = 0.05;
 
     public static final double speakerSpeed = 1;
