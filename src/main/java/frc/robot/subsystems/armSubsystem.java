@@ -57,7 +57,16 @@ public class armSubsystem extends SubsystemBase{
         }
        
     }
+    public void MoveWithStick(double leftStickPos){ 
+        double speed = leftStickPos * ScoringConstants.armMaxSpeed;
+        //  speed               leftStickPos
+        //  -----    =    ---------
+        //   armMaxSpeed           1
 
+        //armMaxSpeed x leftStickPos = speed
+        leftArmMotor.set(speed);
+        rightArmMotor.set(-speed);
+    }
 
     public void stopArm(){ 
         leftArmMotor.stopMotor();
