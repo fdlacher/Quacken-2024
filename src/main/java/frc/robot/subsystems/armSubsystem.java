@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ScoringConstants;
 public class armSubsystem extends SubsystemBase{
@@ -30,21 +31,23 @@ public class armSubsystem extends SubsystemBase{
         
         armEncoder = leftArmMotor.getAbsoluteEncoder(Type.kDutyCycle);
         Shuffleboard.getTab("Intake").add("Arm PID", armPID);
+        
     }
 
     public void moveArm(double speed){ 
         System.out.println("Moving arm" + speed);
         leftArmMotor.set(speed);
         rightArmMotor.set(-speed);
+         SmartDashboard.putNumber("Intake",currentAngle);
         
     }
-    public void moveArm(double speed, double leftStickPos){
+    public void moveArm(double speed, double rightStickPos){
         
-        if(leftStickPos > 0.0){
+        if(rightStickPos > 0.0){
             leftArmMotor.set(speed);
             rightArmMotor.set(-speed);
         }
-        else if(leftStickPos < 0.0){
+        else if(rightStickPos < 0.0){
             leftArmMotor.set(-speed);
             rightArmMotor.set(speed);
         }
@@ -52,6 +55,7 @@ public class armSubsystem extends SubsystemBase{
             leftArmMotor.stopMotor();
             rightArmMotor.stopMotor();
         }
+       
     }
 
 

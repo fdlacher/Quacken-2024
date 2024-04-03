@@ -22,6 +22,7 @@ public class IntakeSubsystem extends SubsystemBase{
     }
 
     public void enableIntake(double speed){
+        System.out.println("Intaking");
         intakeMotor.set(-speed); // temp value
         indexer.set(ScoringConstants.indexerSpeed);
     }
@@ -38,12 +39,12 @@ public class IntakeSubsystem extends SubsystemBase{
     public void reverseIntake (){
         indexer.set(-ScoringConstants.indexerSpeed);
     }
-    public void rightStickIntake(double rightStickPos){
+    public void rightStickIntake(double leftStickPos){
         //should take in stick position and then choose wether to do either inatke or reversed index
-        if(rightStickPos > 0.0){
+        if(leftStickPos > 0.0){
             enableIntake(ScoringConstants.intakeSpeed);
         }
-        else if(rightStickPos < 0.0){
+        else if(leftStickPos < 0.0){
             indexer.set(-ScoringConstants.indexerSpeed);
             intakeMotor.set(ScoringConstants.intakeSpeed);
         }

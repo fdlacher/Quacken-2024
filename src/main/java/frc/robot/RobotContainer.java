@@ -224,10 +224,10 @@ public class RobotContainer {
     //final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
     
     final ampArmPivotBasicCommand ampMoveArmUp = new ampArmPivotBasicCommand(ampArmSubsystem,0.05);
-    bScorerbutton.onTrue(ampMoveArmUp);
+    bScorerbutton.whileTrue(ampMoveArmUp);
 
     final ampArmPivotBasicCommand ampMoveArmDown = new ampArmPivotBasicCommand(ampArmSubsystem, -0.05);
-    yScorerbutton.onTrue(ampMoveArmDown);
+    yScorerbutton.whileTrue(ampMoveArmDown);
   }
 //public Command getTestAutoCommand(){ 
   
