@@ -226,10 +226,10 @@ public class RobotContainer {
     //bScorerbutton.onTrue(speakerArm);//There might be a better button for this, IDK.
     //final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
     
-    final ampArmPivotBasicCommand ampMoveArmUp = new ampArmPivotBasicCommand(ampArmSubsystem,0.05);
+    final ampArmPivotBasicCommand ampMoveArmUp = new ampArmPivotBasicCommand(ampArmSubsystem,0.15);
     bScorerbutton.whileTrue(ampMoveArmUp);
 
-    final ampArmPivotBasicCommand ampMoveArmDown = new ampArmPivotBasicCommand(ampArmSubsystem, -0.05);
+    final ampArmPivotBasicCommand ampMoveArmDown = new ampArmPivotBasicCommand(ampArmSubsystem, -0.15);
     yScorerbutton.whileTrue(ampMoveArmDown);
   }
 
