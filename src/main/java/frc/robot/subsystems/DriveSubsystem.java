@@ -158,11 +158,12 @@ public void driveFieldRelative(ChassisSpeeds fieldrelativeSpeeds){
   );
   SwerveDriveKinematics.desaturateWheelSpeeds(
     swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
+    setModuleStates(swerveModuleStates);
 
-    m_frontLeft.setDesiredState(swerveModuleStates[0]);
-    m_frontRight.setDesiredState(swerveModuleStates[1]);
-    m_rearLeft.setDesiredState(swerveModuleStates[2]);
-    m_rearRight.setDesiredState(swerveModuleStates[3]);
+    //m_frontLeft.setDesiredState(swerveModuleStates[0]);
+    //m_frontRight.setDesiredState(swerveModuleStates[1]);
+    //m_rearLeft.setDesiredState(swerveModuleStates[2]);
+    //m_rearRight.setDesiredState(swerveModuleStates[3]);
 }
   /**
    * Resets the odometry to the specified pose.

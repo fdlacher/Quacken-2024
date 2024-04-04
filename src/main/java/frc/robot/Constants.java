@@ -135,7 +135,7 @@ public final class Constants {
         public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 1;
 
-        public static final double kDeadband = 0.15;
+        public static final double kDeadband = 0.1;
   }
 
   public static final class AutoConstants {
@@ -171,7 +171,7 @@ public final class Constants {
     public static final double speakerAngle = 0.15;
     public static final double stowAngle = 0.0;
     public static final double ampAngle = 0.340;
-    public static final double intakeAngle = 0.235;
+    public static final double intakeAngle = 0.942;
 
     public static final int kShootSetMotor = 19;//Indexer?
     public static final int kBackShootGoalMotor1 = 17;
