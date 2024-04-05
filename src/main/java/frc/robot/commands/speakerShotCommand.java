@@ -19,6 +19,7 @@ public class speakerShotCommand extends Command {
 
     @Override
     public void execute() {
+        System.out.println("Shooting!");
         shooterSubsystem.shootSpeaker();
     }
 

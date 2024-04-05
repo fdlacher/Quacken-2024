@@ -32,10 +32,12 @@ public final class Constants {
     public static final double kMaxSpeedMetersPerSecond = 4.46;
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
 
-    public static final double kDirectionSlewRate = 1.2; // radians per second
+    public static final double kDirectionSlewRate = .8; // radians per second
     public static final double kMagnitudeSlewRate = 1.8; // percent per second (1 = 100%)
     public static final double kRotationalSlewRate = 2.5; // percent per second (1 = 100%)
-
+// 1.2 //  .8
+//1.8 // 1.8
+//2.0 // 2.5
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(24);
     // Distance between centers of right and left wheels on robot

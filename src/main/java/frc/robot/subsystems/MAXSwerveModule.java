@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Encoder;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -141,6 +143,11 @@ public class MAXSwerveModule {
    * @param desiredState Desired state with speed and angle.
    */
   public void setDesiredState(SwerveModuleState desiredState) {
+    if(Math.abs(desiredState.speedMetersPerSecond) < .001){
+      stop();
+      return;
+    }
+
     // Apply chassis angular offset to the desired state.
     SwerveModuleState correctedDesiredState = new SwerveModuleState();
     correctedDesiredState.speedMetersPerSecond = desiredState.speedMetersPerSecond;
@@ -150,15 +157,40 @@ public class MAXSwerveModule {
     SwerveModuleState optimizedDesiredState = SwerveModuleState.optimize(correctedDesiredState,
         new Rotation2d(m_turningEncoder.getPosition()));
 
+    // if optimised state speed < 0.01
+     if(Math.abs(optimizedDesiredState.speedMetersPerSecond) < 0.01){
+            stop();
+      return;
+
+    } 
+    
+
     // Command driving and turning SPARKS MAX towards their respective setpoints.
     m_drivingPIDController.setReference(optimizedDesiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
     m_turningPIDController.setReference(optimizedDesiredState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
 
     m_desiredState = desiredState;
   }
+  /* public void setDesiredStateTest(SwerveModuleState desiredState){
+      Rotation2d turnRotation = new Rotation2d(m_turningEncoder.getPosition());
+      PIDController drivingPIDController = new PIDController(m_drivingPIDController.getP(), m_drivingPIDController.getI(), m_drivingPIDController.getD());
+      //Encoder m_driveEncoder = new Encoder();
+
+      SwerveModuleState state = SwerveModuleState.optimize(desiredState, turnRotation);
+
+      state.speedMetersPerSecond += state.angle.minus(turnRotation).getCos();
+
+      double driveOutput = drivingPIDController.calculate();
+
+
+    } */
 
   /** Zeroes all the SwerveModule encoders. */
   public void resetEncoders() {
     m_drivingEncoder.setPosition(0);
+  }
+  public void stop(){
+    m_drivingSparkMax.set(0);
+    m_turningSparkMax.set(0);
   }
 }

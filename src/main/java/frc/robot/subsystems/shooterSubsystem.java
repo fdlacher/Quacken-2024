@@ -26,6 +26,11 @@ public class shooterSubsystem extends SubsystemBase{
         shootMotorFront.set(speed);
     }
 
+    public void autoShootSpeaker(double speed){
+        System.out.println("Shooting");
+        shootMotorBack.set(speed);
+        shootMotorFront.set(speed);
+    }
 
     public void endShoot(){ 
         shootMotorBack.stopMotor();
