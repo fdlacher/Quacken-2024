@@ -113,7 +113,7 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband+.2),
-                true, true), // be careful when false
+                OIConstants.fieldRelative, true), // be careful when false
             m_robotDrive));
             
     /*
@@ -209,7 +209,7 @@ public class RobotContainer {
     leftTrigger.whileTrue(ampShot);
 
     //mflip amp arm
-    xScorerbutton.onTrue(Commands.runOnce(()-> ampArmSubsystem.move(.15),ampArmSubsystem).andThen(new WaitCommand(2)).andThen(()-> ampArmSubsystem.stop(),ampArmSubsystem));
+    xScorerbutton.onTrue(Commands.runOnce(()-> ampArmSubsystem.move(.22),ampArmSubsystem).andThen(new WaitCommand(2)).andThen(()-> ampArmSubsystem.stop(),ampArmSubsystem));
 
     //arm pos- manual
     final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);

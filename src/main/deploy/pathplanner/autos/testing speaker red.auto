@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7636103146671328,
-      "y": 6.558068465637644
+      "x": 15.671505237452582,
+      "y": 6.686887667645041
     },
-    "rotation": 60.47863816541835
+    "rotation": 125.07375449392399
   },
   "command": {
     "type": "sequential",
@@ -38,19 +38,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "moveBackwards amp side"
+            "pathName": "Red 2 Drive"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "test leave speaker"
+            "pathName": "leaveSPeakerTESTRED"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "pickup note upper"
+            "pathName": "testINTAKERED"
           }
         }
       ]

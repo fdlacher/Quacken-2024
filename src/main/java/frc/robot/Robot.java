@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
 
     //Change which of these is commented to change whether the auto is specifically called in code or if it is selected somewhere else.
-    m_autonomousCommand = m_robotContainer.getSelectedAutonomousCommand();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();//getAutonomousCommand
     //m_autonomousCommand = m_robotContainer.getSingleAutonomousCommand1();
 
 
