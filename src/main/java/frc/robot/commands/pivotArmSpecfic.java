@@ -1,4 +1,4 @@
-
+/* 
 package frc.robot.commands;
 
 import java.util.function.Supplier;
@@ -45,6 +45,7 @@ public class pivotArmSpecfic extends Command {
          * -ScoringConstants.armMaxSpeed);
          * armSubsystem.moveArm(speed);
          */
+        /* 
         armSubsystem.moveArmSpecific(endAngle.get());
     }
 
@@ -58,3 +59,4 @@ public class pivotArmSpecfic extends Command {
         return armPID.atSetpoint();
     }
 }
+ */

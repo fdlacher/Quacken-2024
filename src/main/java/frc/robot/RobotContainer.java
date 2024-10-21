@@ -1,3 +1,8 @@
+//TODO: Arm Pivot PID
+//TODO: Auto
+//TODO: Controls
+//TODO: Constants Tweaking.
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -26,7 +31,7 @@ import frc.robot.commands.ampShotCommand;
 import frc.robot.commands.armCommand;
 import frc.robot.commands.intakeCommand;
 import frc.robot.commands.inverseIndex;
-import frc.robot.commands.pivotArmSpecfic;
+// import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.resetGyroCommand;
 import frc.robot.commands.setArmSetPointCommand;
 import frc.robot.commands.speakerShotCommand;
@@ -45,8 +50,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
-import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -72,10 +75,22 @@ public class RobotContainer {
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   CommandXboxController m_scorerController = new CommandXboxController(OIConstants.kScorerControllerPort);
 
+    final speakerShotCommand shoot = new speakerShotCommand(shooterSubsystem);
+    final ampShotCommand ampShoot = new ampShotCommand(shooterSubsystem);
+    final intakeCommand intake = new intakeCommand(intakeSubsystem);
+    final resetGyroCommand reset = new resetGyroCommand(m_robotDrive);
+
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
+
+    NamedCommands.registerCommand("shoot", Commands.runOnce(() -> shooterSubsystem.shootSpeaker(), shooterSubsystem));
+    NamedCommands.registerCommand("ampShoot", ampShoot);
+    NamedCommands.registerCommand("intake", Commands.runOnce(() -> intakeSubsystem.enableIntake(0.5), intakeSubsystem));
+    NamedCommands.registerCommand("reset", reset);//rest gyro
     // Build an auto chooser. This will use Commands.none() as the default option.
     autoChooser = AutoBuilder.buildAutoChooser();
 
@@ -92,11 +107,11 @@ public class RobotContainer {
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
-            () -> m_robotDrive.drive(
+            () -> m_robotDrive.drive( // we didnt esablish drivers joysticks for this
                 -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband+.2),
-                true, true), // be careful when false
+                OIConstants.fieldRelative, true), // be careful when false
             m_robotDrive));
             
     /*
@@ -114,32 +129,20 @@ public class RobotContainer {
       ,shooterSubsystem));
       
       
-    intakeSubsystem.setDefaultCommand(
-      new RunCommand(()-> intakeSubsystem.useIntake(-MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)), intakeSubsystem)
+    intakeSubsystem.setDefaultCommand( // used to move inake
+      new RunCommand(()-> intakeSubsystem.useIntake(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), intakeSubsystem)
     );
-    // set point-constantly be running
-    /* 
-    armSubsystem.setDefaultCommand(
-      new RunCommand(() -> armSubsystem.MoveWithStick(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), armSubsystem)
+
+    armSubsystem.setDefaultCommand( // used to move arm - default means it be applied every second if it has no given command, 
+      new RunCommand(() -> armSubsystem.MoveWithStick(-MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)), armSubsystem)
     );
-    */
+        // set point-constantly be running
+   
  /*  
     armSubsystem.setDefaultCommand(
       new RunCommand(()-> armSubsystem.goToSetPoint(), armSubsystem)
     );
             */                        
-
-    //armSubsystem.setDefaultCommand(new RunCommand(()-> armSubsystem.goToSetPoint(),armSubsystem));
-    final speakerShotCommand shoot = new speakerShotCommand(shooterSubsystem);
-    final ampShotCommand ampShoot = new ampShotCommand(shooterSubsystem);
-    final intakeCommand intake = new intakeCommand(intakeSubsystem);
-    final resetGyroCommand reset = new resetGyroCommand(m_robotDrive);
-    NamedCommands.registerCommand("Shoot", shoot);
-    NamedCommands.registerCommand("ampShoot", ampShoot);
-    NamedCommands.registerCommand("intake", intake);
-    NamedCommands.registerCommand("Reset", reset);
-
-
     
   }
 
@@ -153,7 +156,7 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    new RunCommand(
+    new RunCommand( // im not actualy sjre what this does anymore
             () -> m_robotDrive.setX(),
             m_robotDrive);//unknown if this will register...
 
@@ -187,11 +190,11 @@ public class RobotContainer {
     yDriverbutton.onTrue(resetGyro);
     //intake/indexers
     final inverseIndex reverse = new inverseIndex(intakeSubsystem);
-    xScorerbutton.whileTrue(reverse);
+    //xScorerbutton.whileTrue(reverse);
     //new RunCommand(()->intakeSubsystem.rightStickIntake(m_scorerController.getRightY()), intakeSubsystem);
 
     final intakeCommand intake = new intakeCommand(intakeSubsystem);
-    aScorerButton.whileTrue(intake);
+    //aScorerButton.whileTrue(intake);
 
 
 /*     //shoot
@@ -199,26 +202,30 @@ public class RobotContainer {
     rightTrigger.whileTrue(shoot);
     
  */
+
     final ampShotCommand ampShot = new ampShotCommand(shooterSubsystem);
     leftTrigger.whileTrue(ampShot);
 
+    //mflip amp arm
+    xScorerbutton.onTrue(Commands.runOnce(()-> ampArmSubsystem.move(.22),ampArmSubsystem).andThen(new WaitCommand(1.5)).andThen(()-> ampArmSubsystem.stop(),ampArmSubsystem));
+
     //arm pos- manual
     final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
-    dScorerUP.whileTrue(armUp);
+    //dScorerUP.whileTrue(armUp);
 
     final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armMaxSpeed);
-    dScorerDOWN.whileTrue(armDown);
+    //dScorerDOWN.whileTrue(armDown);
 
-    final pivotArmSpecfic testArmSpecfic = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
+    /* final pivotArmSpecfic testArmSpecfic = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
 
     //arm pos- preset
     final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(armSubsystem,ScoringConstants.speakerAngle);
     
-    final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
-
+    final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle); */
+/* 
     final setArmSetPointCommand ampArm = new setArmSetPointCommand(armSubsystem, 0.0);
     aScorerButton.onTrue(ampArm);
-
+ */
     final setArmSetPointCommand intakeArm = new setArmSetPointCommand(armSubsystem, 0.13); //Placeholder! TODO: Change the angle.
     //dScorerRIGHT.onTrue(intakeArm);
 
@@ -227,10 +234,10 @@ public class RobotContainer {
     //final pivotArmSpecfic intakeArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.intakeAngle);
     
     final ampArmPivotBasicCommand ampMoveArmUp = new ampArmPivotBasicCommand(ampArmSubsystem,0.15);
-    bScorerbutton.whileTrue(ampMoveArmUp);
+    //yScorerbutton.whileTrue(ampMoveArmUp);
 
     final ampArmPivotBasicCommand ampMoveArmDown = new ampArmPivotBasicCommand(ampArmSubsystem, -0.15);
-    yScorerbutton.whileTrue(ampMoveArmDown);
+    //aScorerButton.whileTrue(ampMoveArmDown);
   }
 
 
@@ -242,15 +249,16 @@ public class RobotContainer {
    */
 
     //Load an autobuilder from autobuilder (autobuilder is in DriveSubsystem)
-    public Command getSingleAutonomousCommand1() 
+  /*   public Command getSingleAutonomousCommand1() 
     {
       return new PathPlannerAuto("Blue 1");//Just a test auto.
     }
-
+     */
   public Command getSelectedAutonomousCommand() 
   {
     return autoChooser.getSelected();
   }
+  //
   
     
   //public Command getAutonomousCommand() {
@@ -310,14 +318,16 @@ public class RobotContainer {
     //return Commands.sequence(shoot).andThen(intake).andThen(()-> m_robotDrive.drive(0.2,0.0,0.0,OIConstants.fieldRelative,true)).until(()->new WaitCommand(3).isFinished()).andThen(()-> m_robotDrive.drive(0,0,0,OIConstants.fieldRelative,true)).andThen(stopShoot); //problem, drive doesnt stop
     //autoDriveCommand backwards = new autoDriveCommand(m_robotDrive);
 
-    /* return Commands.runOnce(
-      () -> shooterSubsystem.shoot(),
+
+
+public Command getAutonomousCommand(){ 
+     return Commands.runOnce(
+      () -> shooterSubsystem.shootSpeaker(),
       shooterSubsystem).andThen(new WaitCommand(2))
       .andThen(()->intakeSubsystem.enableIntake(0.5),
       intakeSubsystem).andThen(new WaitCommand(5))
       .andThen(new WaitCommand(1)).andThen(()-> shooterSubsystem.endShoot(),shooterSubsystem)
       .andThen(()-> m_robotDrive.drive(0.0,0.5,0.0,OIConstants.fieldRelative,true),m_robotDrive);
       //.andThen(backwards);
- */
-    
+  }
   }

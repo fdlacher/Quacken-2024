@@ -85,6 +85,8 @@ public class DriveSubsystem extends SubsystemBase {
 
  final Field2d field = new Field2d();
  SmartDashboard.putData("Field", field);
+
+ //auto
   AutoBuilder.configureHolonomic(
      this::getPose,
     this::resetOdometry,
@@ -98,6 +100,7 @@ public class DriveSubsystem extends SubsystemBase {
       new ReplanningConfig()
     ),
     () -> { 
+      // tells which alliance it is
       var alliance = DriverStation.getAlliance();
       if(alliance.isPresent()) { 
         return alliance.get() == DriverStation.Alliance.Red; 
@@ -193,7 +196,8 @@ public void driveFieldRelative(ChassisSpeeds fieldrelativeSpeeds){
    * @param rateLimit     Whether to enable rate limiting for smoother control.
    */
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, boolean rateLimit) {
-    System.out.println(my_gyro.getAngle()); //print position
+
+    //System.out.println(my_gyro.getAngle()); //print position
     double xSpeedCommanded;
     double ySpeedCommanded;
 

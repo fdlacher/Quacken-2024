@@ -2,25 +2,31 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 14.690347329412607,
-      "y": 3.7889060393505414
+      "x": 1.3041949160821413,
+      "y": 5.604423516539341
     },
-    "rotation": 179.17784753131855
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red 2 Drive"
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "intake"
           }
         }
       ]

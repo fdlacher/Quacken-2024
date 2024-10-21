@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.671505237452582,
+      "y": 6.686887667645041
+    },
+    "rotation": 125.07375449392399
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 2 Drive"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "leaveSPeakerTESTRED"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "testINTAKERED"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
