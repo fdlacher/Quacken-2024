@@ -31,7 +31,7 @@ import frc.robot.commands.ampShotCommand;
 import frc.robot.commands.armCommand;
 import frc.robot.commands.intakeCommand;
 import frc.robot.commands.inverseIndex;
-import frc.robot.commands.pivotArmSpecfic;
+// import frc.robot.commands.pivotArmSpecfic;
 import frc.robot.commands.resetGyroCommand;
 import frc.robot.commands.setArmSetPointCommand;
 import frc.robot.commands.speakerShotCommand;
@@ -50,8 +50,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
-import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -109,7 +107,7 @@ public class RobotContainer {
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
-            () -> m_robotDrive.drive(
+            () -> m_robotDrive.drive( // we didnt esablish drivers joysticks for this
                 -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDeadband+.2),
@@ -131,11 +129,11 @@ public class RobotContainer {
       ,shooterSubsystem));
       
       
-    intakeSubsystem.setDefaultCommand(
+    intakeSubsystem.setDefaultCommand( // used to move inake
       new RunCommand(()-> intakeSubsystem.useIntake(-MathUtil.applyDeadband(m_scorerController.getRightY(), OIConstants.kDeadband)), intakeSubsystem)
     );
 
-    armSubsystem.setDefaultCommand(
+    armSubsystem.setDefaultCommand( // used to move arm - default means it be applied every second if it has no given command, 
       new RunCommand(() -> armSubsystem.MoveWithStick(-MathUtil.applyDeadband(m_scorerController.getLeftY(), OIConstants.kDeadband)), armSubsystem)
     );
         // set point-constantly be running
@@ -158,7 +156,7 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    new RunCommand(
+    new RunCommand( // im not actualy sjre what this does anymore
             () -> m_robotDrive.setX(),
             m_robotDrive);//unknown if this will register...
 
@@ -209,7 +207,7 @@ public class RobotContainer {
     leftTrigger.whileTrue(ampShot);
 
     //mflip amp arm
-    xScorerbutton.onTrue(Commands.runOnce(()-> ampArmSubsystem.move(.22),ampArmSubsystem).andThen(new WaitCommand(2)).andThen(()-> ampArmSubsystem.stop(),ampArmSubsystem));
+    xScorerbutton.onTrue(Commands.runOnce(()-> ampArmSubsystem.move(.22),ampArmSubsystem).andThen(new WaitCommand(1.5)).andThen(()-> ampArmSubsystem.stop(),ampArmSubsystem));
 
     //arm pos- manual
     final armCommand armUp = new armCommand(armSubsystem, ScoringConstants.armMaxSpeed);
@@ -218,12 +216,12 @@ public class RobotContainer {
     final armCommand armDown = new armCommand(armSubsystem, -ScoringConstants.armMaxSpeed);
     //dScorerDOWN.whileTrue(armDown);
 
-    final pivotArmSpecfic testArmSpecfic = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
+    /* final pivotArmSpecfic testArmSpecfic = new pivotArmSpecfic(armSubsystem, ScoringConstants.ampAngle);
 
     //arm pos- preset
     final pivotArmSpecfic speakerAngle = new pivotArmSpecfic(armSubsystem,ScoringConstants.speakerAngle);
     
-    final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle);
+    final pivotArmSpecfic stowArm = new pivotArmSpecfic(armSubsystem, ScoringConstants.stowAngle); */
 /* 
     final setArmSetPointCommand ampArm = new setArmSetPointCommand(armSubsystem, 0.0);
     aScorerButton.onTrue(ampArm);

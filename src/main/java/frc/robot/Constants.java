@@ -48,6 +48,7 @@ public final class Constants {
     //fr 15, 16
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
+      // weird
         new Translation2d(kWheelBase / 2, kTrackWidth / 2), //fr? 15, 16
         new Translation2d(kWheelBase / 2, -kTrackWidth / 2), //fl 15, 3
         new Translation2d(-kWheelBase / 2, kTrackWidth / 2), //br 5.5 16
@@ -187,8 +188,8 @@ public final class Constants {
     public static final double armMaxSpeed = 0.15;
 
     public static final double speakerSpeed = 1;
-    public static final double ampShotSpeedsBack = 0.300; //0.335;//325 //0.235
-    public static final double ampShotSpeedsFront = 0.233;//0.268;//265 //0.16;
+    public static final double ampShotSpeedsBack = 0.330; //0.335;//325 //0.235//.3
+    public static final double ampShotSpeedsFront = 0.28;//0.268;//265 //0.16;//233
     public static final double indexSpeed = 0.5;
     
     public static final int kAmpArmMotor = 18;
